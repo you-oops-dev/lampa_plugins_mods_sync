@@ -1,4 +1,4 @@
-//08.08.2025 - Fix
+//02.07.2025 - Fix
 
 (function () {
     'use strict';
@@ -87,10 +87,6 @@
       return fanserialsHost();
     }
 
-    function filmixHost$1() {
-      return 'https://filmix.my';
-    }
-
     function filmixToken(dev_id, token) {
       return '?user_dev_id=' + dev_id + '&user_dev_name=Xiaomi&user_dev_token=' + token + '&user_dev_vendor=Xiaomi&user_dev_os=14&user_dev_apk=2.2.0&app_lang=ru-rRU';
     }
@@ -146,7 +142,7 @@
 
       if (Lampa.Storage.field('online_mod_proxy_' + name) === true) {
         if (name === 'iframe') return user_proxy2;
-        if (name === 'lumex') return proxy_other ? proxy_secret : proxy_apn;
+        if (name === 'lumex') return user_proxy2;
         if (name === 'rezka') return user_proxy2;
         if (name === 'rezka2') return user_proxy2;
         if (name === 'kinobase') return proxy_apn;
@@ -349,7 +345,6 @@
       getCurrentFanserialsHost: getCurrentFanserialsHost,
       fanserialsHost: fanserialsHost,
       fancdnHost: fancdnHost,
-      filmixHost: filmixHost$1,
       filmixToken: filmixToken,
       filmixUserAgent: filmixUserAgent,
       baseUserAgent: baseUserAgent,
@@ -544,6 +539,7 @@
         prox_enc += 'param/Sec-Fetch-Dest=empty/';
         prox_enc += 'param/Sec-Fetch-Mode=cors/';
         prox_enc += 'param/Sec-Fetch-Site=same-site/';
+        prox_enc += 'enc/aXAyNjA2OjQ3MDA6MzAzMTo6NjgxNTo0NmQ5Lw%3D%3D/';
       }
 
       var prox_enc2 = prox_enc;
@@ -879,7 +875,7 @@
             return {
               label: quality ? quality + 'p' : '360p ~ 1080p',
               quality: quality,
-              file: component.proxyLink(component.fixLink(link, url), prox, prox_enc)
+              file: component.proxyStream(component.fixLink(link, url), 'lumex')
             };
           });
           items.sort(function (a, b) {
@@ -930,13 +926,13 @@
         var hls_file = file.replace(/\/\d\d\d+([^\/]*\.m3u8)$/, '/hls$1');
         network.clear();
         network.timeout(5000);
-        network["native"](component.proxyLink(hls_file, prox, prox_enc), function (str) {
+        network["native"](component.proxyStream(hls_file, 'lumex'), function (str) {
           parseStream(element, call, error, extractItems, str, hls_file);
         }, function (a, c) {
           if (file != hls_file) {
             network.clear();
             network.timeout(5000);
-            network["native"](component.proxyLink(file, prox, prox_enc), function (str) {
+            network["native"](component.proxyStream(file, 'lumex'), function (str) {
               parseStream(element, call, error, extractItems, str, file);
             }, function (a, c) {
               error();
@@ -961,7 +957,7 @@
           link = component.fixLinkProtocol(link, prefer_http);
           return {
             label: item.label,
-            url: component.proxyLink(link, prox, prox_enc)
+            url: component.proxyStreamSubs(link, 'lumex')
           };
         }).filter(function (s) {
           return s.url;
@@ -976,7 +972,7 @@
 
       function getStream(element, call, error) {
         if (element.stream) return call(element);
-        if (!element.media.playlist) return error();
+        if (!element.media.playlist) error();
         var url = component.fixLink(element.media.playlist, embed);
         network.clear();
         network.timeout(10000);
@@ -991,7 +987,7 @@
               return;
             }
 
-            element.stream = component.proxyLink(url, prox, prox_enc);
+            element.stream = component.proxyStream(url, 'lumex');
             element.qualitys = false;
             call(element);
           } else error();
@@ -1108,10 +1104,13 @@
 
     function lumex2(component, _object) {
       var network = new Lampa.Reguest();
-      var extract = [];
+      var extract = {};
       var object = _object;
+      extract.seasons = [];
+      extract.season_num = [];
+      extract.media = [];
       var select_title = '';
-      var is_playlist = false;
+      Lampa.Storage.field('online_mod_prefer_http') === true;
       var embed = atob('aHR0cHM6Ly9hcGkubGFtcGEuc3RyZWFtL2x1bWV4Lw==');
       var api_suffix = '/' + encodeURIComponent(btoa(window.location.href));
       var cub_id = encodeURIComponent(btoa(Lampa.Storage.get('account', '{}').email || 'none'));
@@ -1119,7 +1118,8 @@
       var choice = {
         season: 0,
         voice: 0,
-        voice_name: ''
+        voice_name: '',
+        voice_id: 0
       };
 
       function lumex_api(api, callback, error) {
@@ -1148,35 +1148,28 @@
         object = _object;
         select_title = object.search || object.movie.title;
         var error = component.empty.bind(component);
-        var src = embed + 'sId/' + encodeURIComponent(object.movie.id) + '/mod/';
+        var src = embed;
 
         if (data && data[0] && data[0].content_type && data[0].id) {
           var imdb_id = data[0].imdb_id || 'null';
           var kp_id = data[0].kp_id || 'null';
-          src += encodeURIComponent(kp_id) + '/' + encodeURIComponent(imdb_id);
+          src += 'searchId/mod/' + encodeURIComponent(imdb_id) + '/' + encodeURIComponent(kp_id);
         } else {
           var _imdb_id = (+kinopoisk_id ? !object.clarification && object.movie.imdb_id : kinopoisk_id) || 'null';
 
           var _kp_id = +kinopoisk_id ? kinopoisk_id : 'null';
 
-          src += encodeURIComponent(_kp_id) + '/' + encodeURIComponent(_imdb_id);
+          src += 'searchId/mod/' + encodeURIComponent(_imdb_id) + '/' + encodeURIComponent(_kp_id);
         }
 
-        component.checkMyIp(function () {
-          var ip = Utils.getMyIp();
-
-          if (!ip) {
-            error();
-            return;
-          }
-
-          var api = src + '/' + cub_id + api_suffix;
-          api = Lampa.Utils.addUrlComponent(api, 'ip=' + encodeURIComponent(ip));
-          api = Lampa.Utils.addUrlComponent(api, 'search=' + encodeURIComponent(select_title));
-          lumex_api(api, function (json) {
-            if (json) success(json);else component.emptyForQuery(select_title);
-          }, error);
-        });
+        lumex_api(src + api_suffix, function (json) {
+          if (json && json.content_type && json.id && json.plgs) {
+            var src2 = embed + 'finds/' + encodeURIComponent(json.plgs) + '/' + encodeURIComponent(json.id) + '/' + encodeURIComponent(json.content_type.replace(/_/g, '-'));
+            lumex_api(src2 + api_suffix, function (json) {
+              if (json) success(json);else component.emptyForQuery(select_title);
+            }, error);
+          } else component.emptyForQuery(select_title);
+        }, error);
       };
 
       this.extendChoice = function (saved) {
@@ -1192,7 +1185,8 @@
         choice = {
           season: 0,
           voice: 0,
-          voice_name: ''
+          voice_name: '',
+          voice_id: 0
         };
         filter();
         append(filtred());
@@ -1208,7 +1202,12 @@
 
       this.filter = function (type, a, b) {
         choice[a.stype] = b.index;
-        if (a.stype == 'voice') choice.voice_name = filter_items.voice[b.index];
+
+        if (a.stype == 'voice') {
+          choice.voice_name = filter_items.voice[b.index];
+          choice.voice_id = filter_items.voice_info[b.index] && filter_items.voice_info[b.index].id;
+        }
+
         component.reset();
         filter();
         append(filtred());
@@ -1227,53 +1226,35 @@
       function success(json, cookie) {
         component.loading(false);
 
-        if (json && json.folder && Lampa.Arrays.getKeys(json.folder).length) {
-          if (json.folder.forEach) {
-            extract = json.folder;
-            is_playlist = false;
-          } else {
-            extract = [];
-            is_playlist = true;
+        if (json && json.media && json.media.length) {
+          var seasons = [];
+          var season_num = [];
+          var season_count = 0;
+          json.media.forEach(function (media) {
+            if (media.episodes) {
+              season_count++;
 
-            for (var voice in json.folder) {
-              var seasons = json.folder[voice];
-
-              if (!seasons.forEach) {
-                var _loop = function _loop(season_id) {
-                  var episodes = seasons[season_id];
-
-                  if (episodes.forEach) {
-                    var s = extract.filter(function (s) {
-                      return s.season_id === season_id;
-                    })[0];
-
-                    if (!s) {
-                      s = {
-                        season_id: season_id,
-                        title: Lampa.Lang.translate('torrent_serial_season') + ' ' + season_id,
-                        voices: []
-                      };
-                      extract.push(s);
-                    }
-
-                    s.voices.push({
-                      title: voice,
-                      episodes: episodes
-                    });
-                  }
-                };
-
-                for (var season_id in seasons) {
-                  _loop(season_id);
-                }
+              if (media.episodes.length) {
+                seasons.push(media);
+                season_num.push(media.season_id != null ? media.season_id : season_count);
               }
+            } else if (media.media && media.episode_id != null && !season_count) {
+              season_count++;
+              seasons.push({
+                season_id: 1,
+                season_name: 'Сезон 1',
+                episodes: json.media
+              });
+              season_num.push(1);
             }
-
-            extract.sort(function (a, b) {
-              return a.season_id - b.season_id;
-            });
-          }
-
+          });
+          extract = {
+            seasons: seasons,
+            season_num: season_num,
+            media: json.media,
+            tag_url: json.tag_url || '',
+            vast_msg: json.vast_msg || ''
+          };
           filter();
           append(filtred());
         } else component.emptyForQuery(select_title);
@@ -1285,19 +1266,35 @@
 
       function filter() {
         filter_items = {
-          season: is_playlist ? extract.map(function (s) {
-            return s.title;
-          }) : [],
-          voice: []
+          season: extract.season_num.map(function (s) {
+            return Lampa.Lang.translate('torrent_serial_season') + ' ' + s;
+          }),
+          season_num: extract.season_num,
+          voice: [],
+          voice_info: []
         };
         if (!filter_items.season[choice.season]) choice.season = 0;
 
-        if (is_playlist) {
-          var season = extract[choice.season];
+        if (extract.season_num.length) {
+          var season = extract.seasons[choice.season];
 
-          if (season && season.voices) {
-            season.voices.forEach(function (voice) {
-              filter_items.voice.push(voice.title);
+          if (season && season.episodes) {
+            season.episodes.forEach(function (episode) {
+              if (episode.media) {
+                episode.media.forEach(function (voice) {
+                  if (voice.translation_id != null && voice.translation_name != null) {
+                    if (!filter_items.voice_info.some(function (v) {
+                      return v.id == voice.translation_id;
+                    })) {
+                      filter_items.voice.push(voice.translation_name);
+                      filter_items.voice_info.push({
+                        id: voice.translation_id,
+                        name: voice.translation_name
+                      });
+                    }
+                  }
+                });
+              }
             });
           }
         }
@@ -1305,7 +1302,16 @@
         if (!filter_items.voice[choice.voice]) choice.voice = 0;
 
         if (choice.voice_name) {
-          var inx = filter_items.voice.indexOf(choice.voice_name);
+          var inx = -1;
+
+          if (choice.voice_id) {
+            var voice = filter_items.voice_info.filter(function (v) {
+              return v.id == choice.voice_id;
+            })[0];
+            if (voice) inx = filter_items.voice_info.indexOf(voice);
+          }
+
+          if (inx == -1) inx = filter_items.voice.indexOf(choice.voice_name);
           if (inx == -1) choice.voice = 0;else if (inx !== choice.voice) {
             choice.voice = inx;
           }
@@ -1322,59 +1328,47 @@
       function filtred() {
         var filtred = [];
 
-        if (is_playlist) {
-          var season = extract[choice.season];
+        if (filter_items.season_num.length) {
+          var season = extract.seasons[choice.season];
+          var season_num = extract.season_num[choice.season];
+          var v = filter_items.voice_info[choice.voice];
 
-          if (season && season.voices) {
-            var voice_title = filter_items.voice[choice.voice];
-            season.voices.forEach(function (voice) {
-              if (voice.title == voice_title && voice.episodes) {
-                voice.episodes.forEach(function (episode) {
-                  filtred.push({
-                    title: component.formatEpisodeTitle(episode.season, episode.episode),
-                    quality: episode.quality || '360p ~ 1080p',
-                    info: ' / ' + voice_title,
-                    season: episode.season + '',
-                    episode: episode.episode,
-                    media: episode,
-                    subtitles: parseSubs(episode.subtitles),
-                    vast_url: episode.vast_url,
-                    vast_msg: episode.vast_msg
-                  });
+          if (season && season.episodes && v) {
+            var episode_count = 0;
+            season.episodes.forEach(function (episode) {
+              episode_count++;
+
+              if (episode.media) {
+                episode.media.forEach(function (voice) {
+                  if (voice.translation_id == v.id) {
+                    var episode_num = episode.episode_id != null ? episode.episode_id : episode_count;
+                    filtred.push({
+                      title: component.formatEpisodeTitle(season_num, episode_num),
+                      quality: voice.max_quality ? voice.max_quality + 'p' : '360p ~ 1080p',
+                      info: ' / ' + (voice.translation_name || v.name),
+                      season: season_num,
+                      episode: episode_count,
+                      media: voice
+                    });
+                  }
                 });
               }
             });
           }
         } else {
-          extract.forEach(function (voice) {
-            if (voice.url) {
+          extract.media.forEach(function (voice) {
+            if (voice.translation_id != null && voice.translation_name != null) {
               filtred.push({
-                title: voice.title || select_title,
-                quality: voice.quality || '360p ~ 1080p',
+                title: voice.translation_name || select_title,
+                quality: voice.max_quality ? voice.max_quality + 'p' : '360p ~ 1080p',
                 info: '',
-                media: voice,
-                subtitles: parseSubs(voice.subtitles),
-                vast_url: voice.vast_url,
-                vast_msg: voice.vast_msg
+                media: voice
               });
             }
           });
         }
 
         return filtred;
-      }
-
-      function parseSubs(tracks) {
-        if (!(tracks && tracks.forEach)) return false;
-        var subtitles = tracks.map(function (item) {
-          return {
-            label: item.label,
-            url: item.url || ''
-          };
-        }).filter(function (s) {
-          return s.url;
-        });
-        return subtitles.length ? subtitles : false;
       }
       /**
        * Получить поток
@@ -1384,16 +1378,26 @@
 
       function getStream(element, call, error) {
         if (element.stream) return call(element);
-        var ip = Utils.getMyIp();
-        if (!element.media.url || !ip) return error();
-        var api = element.media.url + '/' + encodeURIComponent(ip) + api_suffix;
-        lumex_api(api, function (json) {
-          if (json && json.url) {
-            element.stream = json.url;
-            element.qualitys = json.qualitys || false;
-            call(element);
-          } else error();
-        }, error);
+        if (!element.media.playlist) error();
+        component.checkMyIp(function () {
+          var ip = Utils.getMyIp();
+
+          if (!ip) {
+            error();
+            return;
+          }
+
+          var api = embed + 'play/' + object.movie.id + '/' + encodeURIComponent(element.media.playlist) + '/' + cub_id + api_suffix;
+          api = Lampa.Utils.addUrlComponent(api, 'ip=' + encodeURIComponent(ip));
+          api = Lampa.Utils.addUrlComponent(api, 'title=' + encodeURIComponent(object.movie.title));
+          lumex_api(api, function (json) {
+            if (json && json.url) {
+              element.stream = json.url;
+              element.qualitys = json.qualitys || false;
+              call(element);
+            } else error();
+          }, error);
+        });
       }
       /**
        * Добавить видео
@@ -1433,8 +1437,8 @@
                 url: component.getDefaultQuality(element.qualitys, element.stream),
                 quality: component.renameQualityMap(element.qualitys),
                 subtitles: element.subtitles,
-                vast_url: element.vast_url,
-                vast_msg: element.vast_msg,
+                vast_url: extract.tag_url,
+                vast_msg: extract.vast_msg,
                 timeline: element.timeline,
                 title: element.season ? element.title : select_title + (element.title == select_title ? '' : ' / ' + element.title)
               };
@@ -1458,8 +1462,8 @@
                           call();
                         });
                       },
-                      vast_url: elem.vast_url,
-                      vast_msg: elem.vast_msg,
+                      vast_url: extract.tag_url,
+                      vast_msg: extract.vast_msg,
                       timeline: elem.timeline,
                       title: elem.title
                     };
@@ -4028,7 +4032,7 @@
       }
 
       var embed = 'http://filmixapp.cyou/api/v2/';
-      var site = Utils.filmixHost() + '/';
+      var site = 'https://filmix.quest/';
       var select_title = '';
       var prefer_http = Lampa.Storage.field('online_mod_prefer_http') === true;
       var filter_items = {};
@@ -6677,8 +6681,8 @@
       var select_title = '';
       var prox = component.proxy('videoseed');
       var user_agent = Utils.baseUserAgent();
-      var embed = atob('aHR0cHM6Ly90di0yLWtpbm9zZXJpYWwubmV0L2FwaV9wbGF5ZXIucGhw');
-      var suffix = Utils.decodeSecret([69, 91, 92, 84, 89, 5, 1, 85, 83, 83, 6, 5, 14, 4, 84, 92, 4, 85, 84, 9, 87, 13, 3, 85, 2, 9, 83, 87, 80, 83, 80, 81, 83, 2, 14, 12, 7, 2], atob('U2Vla1Rva2Vu'));
+      var embed = atob('aHR0cHM6Ly92aWRlb3NlZWQudHYvYXBpdjIucGhw');
+      var suffix = Utils.decodeSecret([69, 91, 92, 84, 89, 5, 87, 5, 87, 9, 8, 5, 1, 3, 7, 12, 87, 11, 9, 3, 1, 2, 84, 8, 86, 12, 85, 3, 5, 9, 7, 4, 83, 80, 14, 10, 80, 5], atob('U2Vla1Rva2Vu'));
       var headers = Lampa.Platform.is('android') ? {
         'User-Agent': user_agent
       } : {};
@@ -6691,8 +6695,7 @@
       var filter_items = {};
       var choice = {
         season: 0,
-        voice: 0,
-        voice_name: ''
+        voice: 0
       };
       /**
        * Начать поиск
@@ -6715,13 +6718,14 @@
 
         var error = component.empty.bind(component);
         var api = embed;
-        api = Lampa.Utils.addUrlComponent(api, 'kp_id=' + encodeURIComponent(kinopoisk_id));
+        api = Lampa.Utils.addUrlComponent(api, 'item=' + (object.movie.number_of_seasons ? 'serial' : 'movie'));
         api = Lampa.Utils.addUrlComponent(api, suffix);
+        api = Lampa.Utils.addUrlComponent(api, 'kp=' + encodeURIComponent(kinopoisk_id));
         network.clear();
         network.timeout(10000);
-        network["native"](component.proxyLink(api, prox, prox_enc, 'enc2'), function (str) {
-          if (str && str !== 'NONE' && startsWith(str, 'http')) {
-            var url = str;
+        network["native"](component.proxyLink(api, prox, prox_enc, 'enc2'), function (json) {
+          if (json && json.data && json.data[0] && json.data[0].iframe) {
+            var url = json.data[0].iframe;
             var pos = url.indexOf('?');
 
             if (pos !== -1) {
@@ -6742,7 +6746,6 @@
         }, function (a, c) {
           error(network.errorDecode(a, c));
         }, false, {
-          dataType: 'text',
           headers: headers
         });
       };
@@ -6759,8 +6762,7 @@
         component.reset();
         choice = {
           season: 0,
-          voice: 0,
-          voice_name: ''
+          voice: 0
         };
         filter();
         append(filtred());
@@ -6776,7 +6778,6 @@
 
       this.filter = function (type, a, b) {
         choice[a.stype] = b.index;
-        if (a.stype == 'voice') choice.voice_name = filter_items.voice[b.index];
         component.reset();
         filter();
         append(filtred());
@@ -6810,13 +6811,7 @@
           } catch (e) {}
         }
 
-        if (json && json.file && typeof json.file === 'string') {
-          json = {
-            file: [json]
-          };
-        }
-
-        if (json && json.file && json.file.forEach) {
+        if (json && json.file) {
           component.loading(false);
           extract = json;
           filter();
@@ -6853,24 +6848,6 @@
 
         return x;
       }
-
-      function extractVoices(str) {
-        var voices = {};
-        var items = extractItems(str);
-        items.forEach(function (item) {
-          var prev = voices[item.voice || ''];
-          var prev_items = prev && prev.items || [];
-          prev_items.push(item);
-
-          if (!prev || item.quality > prev.quality) {
-            voices[item.voice || ''] = {
-              quality: item.quality,
-              items: prev_items
-            };
-          }
-        });
-        return voices;
-      }
       /**
        * Построить фильтр
        */
@@ -6882,13 +6859,17 @@
           voice: []
         };
         var season_objs = [];
-        extract.file.forEach(function (s) {
-          if (s.folder) {
-            s.title = s.title || s.comment || '';
-            s.season_num = parseInt(s.title.match(/\d+/));
-            season_objs.push(s);
-          }
-        });
+
+        if (extract.file && extract.file.forEach) {
+          extract.file.forEach(function (s) {
+            if (s.folder) {
+              s.title = s.title || s.comment || '';
+              s.season_num = parseInt(s.title.match(/\d+/));
+              season_objs.push(s);
+            }
+          });
+        }
+
         season_objs.sort(function (a, b) {
           var cmp = a.season_num - b.season_num;
           if (cmp) return cmp;
@@ -6900,75 +6881,26 @@
           return s.title;
         });
         if (!filter_items.season[choice.season]) choice.season = 0;
-        var s = season_objs[choice.season];
-
-        if (s && s.folder) {
-          s.folder.forEach(function (e) {
-            if (e.folder) {
-              e.folder.forEach(function (v) {
-                var voice = v.title || v.comment || '';
-                if (filter_items.voice.indexOf(voice) == -1) filter_items.voice.push(voice);
-              });
-            } else if (typeof e.file === 'string') {
-              e.file_voices = extractVoices(e.file);
-
-              for (var voice in e.file_voices) {
-                if (voice && filter_items.voice.indexOf(voice) == -1) filter_items.voice.push(voice);
-              }
-            }
-          });
-        }
-
-        if (!filter_items.voice[choice.voice]) choice.voice = 0;
-
-        if (choice.voice_name) {
-          var inx = filter_items.voice.indexOf(choice.voice_name);
-          if (inx == -1) choice.voice = 0;else if (inx !== choice.voice) {
-            choice.voice = inx;
-          }
-        }
-
         component.filter(filter_items, choice);
       }
       /**
        * Получить потоки
        * @param {String} str
-       * @param {String} voice
        * @returns array
        */
 
 
-      function extractItems(str, voice) {
+      function extractItems(str) {
         if (!str) return [];
 
         try {
-          if (!startsWith(str, '[')) str = '[]' + str;
           var list = component.parsePlaylist(str);
-          list.forEach(function (el) {
-            if (el.voice) el.voice = el.voice.trim();
-          });
-
-          if (voice) {
-            var tmp = list.filter(function (el) {
-              return el.voice == voice;
-            });
-
-            if (tmp.length) {
-              list = tmp;
-            } else {
-              list = list.filter(function (el) {
-                return typeof el.voice === 'undefined';
-              });
-            }
-          }
-
           var items = list.map(function (item) {
             var quality = item.label.match(/(\d\d\d+)p/);
             var file = item.links[0] || '';
             return {
               label: item.label,
               quality: quality ? parseInt(quality[1]) : NaN,
-              voice: item.voice,
               file: file
             };
           });
@@ -7004,78 +6936,45 @@
 
       function filtred() {
         var filtred = [];
-        extract.file.forEach(function (data) {
-          if (data.folder) {
-            var s_title = data.title || data.comment || '';
 
-            if (s_title == filter_items.season[choice.season]) {
-              var season_num = parseInt(s_title.match(/\d+/));
-              data.folder.forEach(function (e) {
-                var e_title = e.title || e.comment || '';
-                var episode_num = parseInt(e_title.match(/\d+/));
-                e_title = e_title.replace(/\d+/, '').replace(/серия/i, '').trim();
+        if (extract.file && extract.file.forEach) {
+          extract.file.forEach(function (data) {
+            if (data.folder) {
+              var s_title = data.title || data.comment || '';
 
-                if (e.folder) {
-                  e.folder.forEach(function (v) {
-                    var voice = v.title || v.comment || '';
-
-                    if (voice == filter_items.voice[choice.voice] && v.file) {
-                      var items = extractItems(v.file);
-                      filtred.push({
-                        title: component.formatEpisodeTitle(season_num, episode_num, e_title),
-                        quality: items[0] && items[0].quality ? items[0].quality + 'p' : '360p ~ 1080p',
-                        info: ' / ' + Lampa.Utils.shortText(voice, 50),
-                        season: season_num,
-                        episode: episode_num,
-                        media: items,
-                        subtitles: parseSubs(v.subtitle)
-                      });
-                    }
-                  });
-                } else if (e.file_voices) {
-                  var voice = filter_items.voice[choice.voice] || '';
-                  var v = e.file_voices[voice];
-
-                  if (!v) {
-                    voice = '';
-                    v = e.file_voices[voice];
-                  }
-
-                  if (v) {
+              if (s_title == filter_items.season[choice.season]) {
+                data.folder.forEach(function (e) {
+                  if (e.file) {
+                    var e_title = e.title || e.comment || '';
+                    var episode_num = parseInt(e_title.match(/\d+/));
+                    var season_num = parseInt(s_title.match(/\d+/));
+                    var items = extractItems(e.file);
+                    e_title = e_title.replace(/\d+/, '').replace(/серия/i, '').trim();
                     filtred.push({
                       title: component.formatEpisodeTitle(season_num, episode_num, e_title),
-                      quality: v.quality ? v.quality + 'p' : '360p ~ 1080p',
-                      info: voice ? ' / ' + Lampa.Utils.shortText(voice, 50) : '',
+                      quality: items[0] && items[0].quality ? items[0].quality + 'p' : '360p ~ 1080p',
+                      info: '',
                       season: season_num,
                       episode: episode_num,
-                      media: v.items,
+                      media: items,
                       subtitles: parseSubs(e.subtitle)
                     });
                   }
-                }
-              });
-            }
-          } else {
-            if (!data.file_voices && data.file && typeof data.file === 'string') {
-              data.file_voices = extractVoices(data.file);
-            }
-
-            if (data.file_voices) {
-              var subtitles = parseSubs(data.subtitle);
-
-              for (var voice in data.file_voices) {
-                var v = data.file_voices[voice];
-                filtred.push({
-                  title: voice || data.title || data.comment || select_title,
-                  quality: v.quality ? v.quality + 'p' : '360p ~ 1080p',
-                  info: '',
-                  media: v.items,
-                  subtitles: subtitles
                 });
               }
             }
-          }
-        });
+          });
+        } else if (typeof extract.file === 'string') {
+          var items = extractItems(extract.file);
+          filtred.push({
+            title: extract.title || extract.comment || select_title,
+            quality: items[0] && items[0].quality ? items[0].quality + 'p' : '360p ~ 1080p',
+            info: '',
+            media: items,
+            subtitles: parseSubs(extract.subtitle)
+          });
+        }
+
         return filtred;
       }
       /**
@@ -7115,7 +7014,7 @@
           var hash = Lampa.Utils.hash(element.season ? [element.season, element.season > 10 ? ':' : '', element.episode, object.movie.original_title].join('') : object.movie.original_title);
           var view = Lampa.Timeline.view(hash);
           var item = Lampa.Template.get('online_mod', element);
-          var hash_file = Lampa.Utils.hash(element.season ? [element.season, element.season > 10 ? ':' : '', element.episode, object.movie.original_title, filter_items.voice[choice.voice]].join('') : object.movie.original_title + element.title);
+          var hash_file = Lampa.Utils.hash(element.season ? [element.season, element.season > 10 ? ':' : '', element.episode, object.movie.original_title, element.title].join('') : object.movie.original_title + 'videoseed');
           element.timeline = view;
           item.append(Lampa.Timeline.render(view));
 
@@ -7319,9 +7218,10 @@
         } catch (e) {}
 
         if (json && json.file && typeof json.file === 'string') {
-          json = {
-            file: [json]
-          };
+          json.file = [{
+            file: json.file,
+            title: select_title
+          }];
         }
 
         if (json && json.file && json.file.forEach) {
@@ -7330,24 +7230,6 @@
           filter();
           append(filtred());
         } else empty();
-      }
-
-      function extractVoices(str) {
-        var voices = {};
-        var items = extractItems(str);
-        items.forEach(function (item) {
-          var prev = voices[item.voice || ''];
-          var prev_items = prev && prev.items || [];
-          prev_items.push(item);
-
-          if (!prev || item.quality > prev.quality) {
-            voices[item.voice || ''] = {
-              quality: item.quality,
-              items: prev_items
-            };
-          }
-        });
-        return voices;
       }
       /**
        * Построить фильтр
@@ -7387,12 +7269,6 @@
                 var voice = v.title || v.comment || '';
                 if (filter_items.voice.indexOf(voice) == -1) filter_items.voice.push(voice);
               });
-            } else if (typeof e.file === 'string') {
-              e.file_voices = extractVoices(e.file);
-
-              for (var voice in e.file_voices) {
-                if (voice && filter_items.voice.indexOf(voice) == -1) filter_items.voice.push(voice);
-              }
             }
           });
         }
@@ -7411,35 +7287,15 @@
       /**
        * Получить потоки
        * @param {String} str
-       * @param {String} voice
        * @returns array
        */
 
 
-      function extractItems(str, voice) {
+      function extractItems(str) {
         if (!str) return [];
 
         try {
-          if (!startsWith(str, '[')) str = '[]' + str;
           var list = component.parsePlaylist(str);
-          list.forEach(function (el) {
-            if (el.voice) el.voice = el.voice.trim();
-          });
-
-          if (voice) {
-            var tmp = list.filter(function (el) {
-              return el.voice == voice;
-            });
-
-            if (tmp.length) {
-              list = tmp;
-            } else {
-              list = list.filter(function (el) {
-                return typeof el.voice === 'undefined';
-              });
-            }
-          }
-
           var items = list.map(function (item) {
             var label = item.label;
 
@@ -7452,7 +7308,6 @@
             return {
               label: label,
               quality: quality ? parseInt(quality[1]) : NaN,
-              voice: item.voice,
               file: file
             };
           });
@@ -7493,18 +7348,17 @@
             var s_title = data.title || data.comment || '';
 
             if (s_title == filter_items.season[choice.season]) {
-              var season_num = parseInt(s_title.match(/\d+/));
               data.folder.forEach(function (e) {
-                var e_title = e.title || e.comment || '';
-                var episode_num = parseInt(e_title.match(/\d+/));
-                e_title = e_title.replace(/\d+/, '').replace(/серия/i, '').trim();
-
                 if (e.folder) {
+                  var e_title = e.title || e.comment || '';
                   e.folder.forEach(function (v) {
                     var voice = v.title || v.comment || '';
 
                     if (voice == filter_items.voice[choice.voice] && v.file) {
+                      var episode_num = parseInt(e_title.match(/\d+/));
+                      var season_num = parseInt(s_title.match(/\d+/));
                       var items = extractItems(v.file);
+                      e_title = e_title.replace(/\d+/, '').replace(/серия/i, '').trim();
                       filtred.push({
                         title: component.formatEpisodeTitle(season_num, episode_num, e_title),
                         quality: items[0] && items[0].quality ? items[0].quality + 'p' : '360p ~ 1080p',
@@ -7516,48 +7370,34 @@
                       });
                     }
                   });
-                } else if (e.file_voices) {
-                  var voice = filter_items.voice[choice.voice] || '';
-                  var v = e.file_voices[voice];
+                } else if (e.file) {
+                  var _e_title = e.title || e.comment || '';
 
-                  if (!v) {
-                    voice = '';
-                    v = e.file_voices[voice];
-                  }
-
-                  if (v) {
-                    filtred.push({
-                      title: component.formatEpisodeTitle(season_num, episode_num, e_title),
-                      quality: v.quality ? v.quality + 'p' : '360p ~ 1080p',
-                      info: voice ? ' / ' + Lampa.Utils.shortText(voice, 50) : '',
-                      season: season_num,
-                      episode: episode_num,
-                      media: v.items,
-                      subtitles: parseSubs(e.subtitle)
-                    });
-                  }
+                  var episode_num = parseInt(_e_title.match(/\d+/));
+                  var season_num = parseInt(s_title.match(/\d+/));
+                  var items = extractItems(e.file);
+                  _e_title = _e_title.replace(/\d+/, '').replace(/серия/i, '').trim();
+                  filtred.push({
+                    title: component.formatEpisodeTitle(season_num, episode_num, _e_title),
+                    quality: items[0] && items[0].quality ? items[0].quality + 'p' : '360p ~ 1080p',
+                    info: '',
+                    season: season_num,
+                    episode: episode_num,
+                    media: items,
+                    subtitles: parseSubs(e.subtitle)
+                  });
                 }
               });
             }
           } else {
-            if (!data.file_voices && data.file && typeof data.file === 'string') {
-              data.file_voices = extractVoices(data.file);
-            }
-
-            if (data.file_voices) {
-              var subtitles = parseSubs(data.subtitle);
-
-              for (var voice in data.file_voices) {
-                var v = data.file_voices[voice];
-                filtred.push({
-                  title: voice || data.title || data.comment || select_title,
-                  quality: v.quality ? v.quality + 'p' : '360p ~ 1080p',
-                  info: '',
-                  media: v.items,
-                  subtitles: subtitles
-                });
-              }
-            }
+            var items = extractItems(data.file);
+            filtred.push({
+              title: data.title || data.comment || select_title,
+              quality: items[0] && items[0].quality ? items[0].quality + 'p' : '360p ~ 1080p',
+              info: '',
+              media: items,
+              subtitles: parseSubs(data.subtitle)
+            });
           }
         });
         return filtred;
@@ -7683,7 +7523,7 @@
 
       var token = Utils.decodeSecret([83, 7, 0, 1, 0, 3, 7, 3, 12, 14, 81, 4, 6, 1, 84, 5, 4, 10, 84, 6, 1, 0, 7, 82, 82, 83, 0, 0, 81, 6]);
       var embed = 'https://api.apbugall.org/?token=' + token;
-      var decrypt = Utils.decodeSecret([31, 82, 68, 88, 87, 67, 95, 95, 87, 31, 71, 69, 68, 24, 23, 67, 66, 85, 27, 20, 69, 89, 95, 82, 88, 28, 25, 86, 66, 0, 31, 79, 23, 64, 81, 75, 23, 81, 73, 66, 70, 86, 85, 68, 25, 10, 20, 74, 75, 15, 23, 64, 81, 75, 23, 92, 94, 69, 64, 23, 11, 16, 76, 69, 88, 31, 91, 85, 67, 85, 88, 17, 24, 106, 25, 94, 64, 67, 70, 67, 6, 13, 104, 30, 106, 27, 108, 104, 108, 22, 106, 31, 24, 106, 27, 24, 31, 11, 25, 94, 82, 17, 30, 92, 88, 69, 68, 16, 76, 20, 84, 78, 64, 69, 87, 83, 77, 25, 68, 94, 69, 64, 83, 87, 68, 88, 23, 9, 17, 17, 64, 88, 93, 85, 87, 10, 19, 17, 29, 20, 82, 88, 83, 86, 83, 81, 100, 100, 125, 116, 89, 93, 73, 88, 90, 84, 88, 64, 31, 66, 95, 82, 82, 90, 24, 22, 31, 23, 30, 81, 79, 6, 20, 14, 22, 19, 17, 87, 70, 8, 10, 19, 17, 29, 20, 86, 64, 1, 25, 13, 20, 22, 17, 29, 23, 29, 16, 30, 17, 85, 68, 66, 91, 71, 90, 81, 64, 10, 4, 23, 87, 65, 83, 95, 95, 4, 17, 71, 68, 84, 64, 94, 66, 92, 92, 10, 19, 10, 22, 66, 86, 68, 16, 75, 82, 82, 84, 68, 81, 69, 22, 13, 25, 66, 70, 93, 13, 20, 65, 87, 66, 25, 66, 71, 84, 68, 107, 86, 81, 85, 87, 67, 20, 12, 22, 19, 122, 89, 74, 80, 91, 88, 80, 25, 1, 25, 6, 16, 17, 96, 93, 95, 82, 91, 64, 69, 16, 119, 99, 20, 0, 6, 26, 7, 13, 16, 110, 94, 90, 7, 2, 15, 23, 78, 6, 13, 30, 20, 112, 70, 68, 91, 83, 103, 92, 85, 127, 88, 66, 27, 2, 5, 7, 23, 4, 2, 17, 30, 127, 127, 98, 125, 117, 27, 20, 93, 95, 95, 82, 22, 119, 92, 84, 95, 94, 31, 20, 116, 94, 66, 86, 90, 81, 30, 7, 7, 0, 24, 0, 23, 7, 26, 1, 22, 103, 86, 80, 81, 75, 94, 27, 4, 5, 3, 25, 5, 6, 30, 12, 20, 71, 87, 70, 23, 87, 83, 90, 82, 68, 69, 69, 107, 94, 82, 16, 4, 23, 19, 1, 3, 82, 15, 6, 0, 13, 82, 4, 3, 83, 1, 2, 7, 6, 13, 1, 0, 6, 15, 7, 5, 85, 1, 90, 5, 0, 2, 4, 81, 86, 80, 0, 8, 5, 80, 87, 5, 7, 15, 6, 3, 95, 84, 5, 84, 82, 86, 84, 15, 82, 15, 15, 87, 80, 82, 4, 86, 14, 84, 0, 84, 0, 4, 17, 15, 23, 83, 72, 77, 69, 85, 82, 66, 26, 83, 89, 93, 88, 94, 90, 17, 11, 20, 95, 89, 67, 77, 108, 5, 108, 22, 31, 23, 17, 31, 30, 12, 20, 84, 78, 64, 69, 87, 83, 77, 25, 68, 67, 89, 76, 5, 22, 13, 25, 31, 19, 65, 87, 70, 86, 91, 31, 118, 69, 93, 86, 95, 90, 10, 17, 16, 18, 23, 81, 95, 85, 91, 83, 83, 101, 107, 126, 119, 94, 91, 68, 88, 88, 85, 87, 67, 28, 89, 89, 71, 67, 109, 1, 100, 30, 20, 26, 22, 19, 24, 17, 25, 25, 28, 20, 25, 17, 68, 86, 68, 81, 84, 24, 102, 84, 80, 81, 69, 83, 66, 4, 16, 20, 26, 22, 81, 89, 85, 95, 93, 82, 97, 99, 127, 119, 88, 91, 64, 86, 89, 81, 95, 66, 28, 69, 83, 86, 92, 69, 81, 67, 31, 20, 28, 22, 23, 22, 16, 29, 17, 29, 20, 31, 17, 64, 88, 69, 85, 92, 25, 97, 68, 83, 66, 20, 118, 83, 84, 88, 64, 10, 17, 16, 18, 23, 81, 95, 85, 91, 83, 83, 101, 107, 126, 119, 94, 91, 68, 88, 88, 85, 87, 67, 28, 68, 69, 81, 69, 105, 81, 94, 82, 90, 69, 31, 20, 28, 22, 23, 22, 16, 29, 17, 29, 20, 31, 17, 64, 88, 69, 85, 92, 25, 103, 82, 85, 29, 127, 82, 64, 82, 94, 25, 115, 83, 67, 77, 10, 81, 92, 70, 64, 78, 25, 23, 16, 23, 31, 17, 30, 19, 71, 87, 66, 88, 90, 27, 98, 83, 87, 26, 112, 85, 77, 84, 92, 28, 123, 91, 83, 83, 13, 90, 88, 70, 66, 25, 19, 30, 22, 27, 25, 31, 19, 65, 87, 70, 86, 91, 31, 106, 82, 87, 28, 112, 81, 67, 85, 88, 20, 100, 93, 69, 83, 9, 68, 87, 93, 92, 26, 91, 67, 95, 83, 94, 88, 31, 30, 30, 20, 26, 22, 28, 16, 70, 81, 75, 86, 89, 30, 110, 25, 101, 83, 65, 76, 82, 71, 69, 83, 80, 26, 97, 89, 77, 95, 9, 105, 123, 120, 127, 66, 68, 73, 101, 81, 64, 67, 81, 68, 66, 31, 30, 30, 15, 17, 83, 76, 67, 68, 81, 90, 67, 26, 89, 83, 85, 83, 83, 66, 74, 23, 9, 17, 122, 85, 90, 70, 81, 23, 103, 88, 80, 66, 82, 88, 68, 93, 23, 94, 71, 25, 17, 85, 89, 82, 66, 86, 94, 80, 22, 31, 20, 8, 22, 75, 25, 16, 123, 67, 95, 83, 94, 88, 23, 3, 23, 92, 94, 69, 64, 108, 7, 109, 21, 23, 19, 99, 83, 82, 82, 68, 85, 75, 16, 14, 17, 68, 81, 81, 83, 66, 92, 69, 24, 17, 17, 97, 68, 83, 66, 20, 118, 83, 84, 88, 64, 16, 12, 16, 76, 68, 81, 67, 105, 85, 80, 83, 94, 77, 27, 20, 22, 101, 81, 84, 27, 118, 92, 67, 87, 89, 27, 112, 82, 69, 68, 30, 13, 20, 22, 83, 89, 71, 66, 73, 30, 27, 20, 22, 101, 81, 84, 27, 118, 92, 67, 87, 89, 27, 121, 88, 82, 85, 30, 13, 20, 22, 85, 91, 69, 69, 23, 21, 23, 19, 98, 83, 87, 26, 112, 85, 77, 84, 92, 28, 101, 93, 67, 83, 23, 3, 23, 19, 66, 87, 89, 82, 27, 95, 75, 94, 83, 88, 88, 19, 27, 22, 23, 97, 26, 102, 84, 71, 65, 82, 69, 68, 92, 83, 25, 102, 95, 64, 95, 17, 10, 25, 16, 108, 124, 122, 124, 67, 66, 64, 107, 82, 69, 68, 83, 71, 67, 17, 16, 68, 23, 14, 17, 77, 73, 12, 22, 70, 88, 69, 20, 68, 69, 81, 69, 22, 13, 25, 68, 64, 67, 24, 89, 86, 66, 83, 81, 31, 27, 13, 91, 81, 67, 87, 16, 87, 86, 89, 84, 11, 22, 65, 95, 85, 78, 71, 91, 67, 66, 22, 25, 28, 12, 84, 82, 64, 80, 22, 90, 86, 91, 85, 4, 21, 111, 111, 20, 105, 29, 20, 30, 19, 23, 87, 94, 88, 64, 82, 88, 68, 4, 21, 28, 106, 104, 22, 106, 28, 25, 27, 24, 29, 10, 22, 93, 81, 22, 24, 76, 68, 81, 67, 31, 79, 23, 64, 81, 75, 23, 71, 17, 11, 20, 66, 69, 85, 75, 108, 5, 108, 24, 71, 91, 95, 83, 92, 31, 7, 29, 22, 25, 2, 31, 11, 25, 65, 85, 67, 22, 88, 23, 11, 16, 74, 25, 88, 84, 88, 83, 67, 94, 11, 25, 65, 85, 67, 22, 76, 23, 11, 16, 9, 12, 20, 87, 89, 70, 31, 64, 81, 75, 23, 93, 17, 11, 20, 7, 13, 16, 80, 23, 8, 17, 90, 15, 23, 95, 27, 18, 30, 20, 73, 22, 9, 23, 30, 72, 25, 28, 20, 66, 24, 87, 95, 87, 66, 122, 88, 80, 84, 119, 64, 31, 95, 25, 16, 23, 17, 17, 90, 15, 23, 64, 81, 75, 23, 85, 17, 11, 20, 89, 83, 71, 25, 118, 70, 67, 87, 77, 31, 90, 25, 2, 23, 82, 94, 68, 28, 65, 87, 66, 25, 94, 20, 12, 22, 4, 12, 22, 89, 25, 11, 20, 93, 13, 20, 94, 29, 27, 16, 23, 76, 17, 11, 20, 31, 7, 1, 9, 4, 1, 0, 3, 6, 3, 3, 16, 19, 23, 76, 17, 29, 20, 6, 4, 3, 13, 2, 29, 17, 19, 20, 91, 26, 16, 88, 108, 93, 108, 22, 9, 23, 78, 11, 25, 65, 85, 67, 22, 71, 86, 22, 13, 25, 68, 26, 66, 70, 88, 94, 66, 24, 30, 16, 29, 10, 22, 82, 88, 68, 24, 79, 86, 70, 17, 95, 20, 10, 22, 92, 25, 26, 20, 0, 13, 20, 94, 22, 14, 4, 23, 4, 10, 22, 93, 26, 27, 25, 25, 76, 20, 71, 87, 70, 23, 92, 16, 4, 23, 85, 106, 95, 105, 27, 22, 68, 25, 10, 20, 106, 69, 85, 108, 92, 109, 21, 23, 71, 80, 109, 93, 106, 107, 11, 25, 68, 85, 106, 95, 105, 23, 11, 16, 77, 108, 4, 108, 26, 20, 68, 87, 107, 83, 106, 20, 12, 22, 64, 108, 7, 109, 2, 23, 73, 17, 64, 85, 69, 22, 81, 90, 84, 81, 65, 66, 71, 104, 85, 95, 87, 67, 70, 94, 90, 71, 23, 11, 16, 74, 86, 26, 91, 89, 93, 89, 30, 23, 30, 30, 26, 66, 90, 93, 84, 83, 24, 11, 27, 20, 28, 4, 29, 23, 29, 16, 30, 75, 19, 17, 29, 20, 86, 85, 83, 92, 71, 64, 66, 105, 93, 83, 13, 16, 92, 79, 64, 67, 87, 87, 67, 24, 64, 75, 88, 76, 3, 22, 31, 10, 22, 23, 73, 86, 70, 80, 91, 27, 100, 68, 81, 82, 86, 25, 83, 89, 64, 26, 117, 95, 87, 67, 70, 94, 90, 71, 10, 17, 16, 18, 23, 81, 95, 85, 91, 83, 83, 101, 107, 126, 119, 94, 91, 68, 88, 88, 85, 87, 67, 28, 80, 85, 87, 82, 70, 68, 74, 104, 87, 94, 88, 64, 69, 89, 92, 74, 30, 20, 26, 22, 19, 24, 17, 11, 25, 94, 82, 17, 30, 120, 86, 91, 64, 88, 25, 100, 93, 87, 64, 81, 89, 66, 84, 25, 93, 66, 30, 19, 86, 88, 84, 75, 88, 93, 85, 17, 29, 30, 77, 16, 92, 79, 64, 67, 87, 87, 67, 24, 88, 92, 86, 80, 84, 68, 71, 108, 17, 99, 75, 86, 95, 80, 27, 86, 88, 66, 29, 122, 88, 90, 69, 68, 91, 91, 69, 23, 100, 23, 9, 17, 87, 87, 84, 83, 64, 77, 68, 107, 82, 89, 90, 67, 68, 95, 85, 68, 15, 17, 75, 20, 74, 22, 85, 65, 67, 70, 80, 85, 64, 25, 69, 68, 75, 82, 85, 92, 105, 68, 69, 89, 72, 11, 23, 9, 17, 30, 19, 71, 87, 66, 88, 90, 27, 126, 68, 93, 80, 95, 94, 4, 16, 20, 26, 22, 81, 89, 85, 95, 93, 82, 97, 99, 127, 119, 88, 91, 64, 86, 89, 81, 95, 66, 28, 95, 89, 67, 77, 108, 5, 108, 31, 20, 28, 22, 23, 22, 16, 29, 17, 29, 20, 31, 17, 64, 88, 69, 85, 92, 25, 102, 82, 80, 85, 75, 82, 70, 12, 17, 20, 28, 22, 85, 87, 84, 91, 85, 83, 97, 101, 127, 115, 86, 90, 68, 94, 88, 81, 89, 66, 24, 81, 88, 71, 69, 109, 5, 106, 22, 27, 25, 16, 27, 22, 31, 20, 28, 22, 23, 22, 16, 29, 17, 29, 20, 31, 17, 64, 88, 69, 85, 92, 25, 97, 68, 83, 66, 20, 118, 83, 84, 88, 64, 10, 17, 16, 18, 23, 81, 95, 85, 91, 83, 83, 101, 107, 126, 119, 94, 91, 68, 88, 88, 85, 87, 67, 28, 68, 69, 81, 69, 105, 81, 94, 82, 90, 69, 31, 20, 28, 22, 23, 22, 16, 29, 10, 22, 81, 79, 66, 66, 88, 84, 64, 31, 69, 64, 69, 83, 81, 84, 104, 92, 84, 87, 80, 82, 68, 67, 25, 10, 20, 125, 87, 89, 71, 87, 30, 105, 91, 85, 69, 80, 91, 69, 91, 30, 80, 68, 28, 22, 87, 90, 83, 68, 95, 80, 83, 19, 24, 22, 11, 23, 77, 16, 30, 120, 70, 88, 81, 93, 89, 17, 10, 25, 95, 91, 66, 66, 111, 6, 107, 28, 25, 16, 102, 84, 80, 81, 69, 83, 66, 30, 13, 20, 89, 89, 71, 67, 109, 1, 100, 23, 31, 17, 17, 27, 16, 26, 16, 30, 98, 71, 84, 68, 25, 118, 81, 85, 87, 67, 19, 11, 22, 65, 68, 83, 66, 102, 86, 83, 84, 88, 64, 23, 75, 16, 3, 23, 79, 76, 13, 20, 74, 22, 66, 92, 67, 65, 67, 88, 20, 82, 78, 68, 75, 86, 87, 69, 13, 20, 74, 31, 30, 90, 86, 88, 93, 30, 79, 74, 26]);
+      var decrypt = Utils.decodeSecret([31, 82, 68, 88, 87, 67, 95, 95, 87, 31, 71, 69, 68, 24, 23, 67, 66, 85, 27, 20, 69, 89, 95, 82, 88, 28, 25, 86, 66, 0, 31, 79, 23, 64, 81, 75, 23, 81, 73, 66, 70, 86, 85, 68, 25, 10, 20, 74, 75, 15, 23, 64, 81, 75, 23, 92, 94, 69, 64, 23, 11, 16, 76, 69, 88, 31, 91, 85, 67, 85, 88, 17, 24, 106, 25, 94, 64, 67, 70, 67, 6, 13, 104, 30, 106, 27, 108, 104, 108, 22, 106, 31, 24, 106, 27, 24, 31, 11, 25, 94, 82, 17, 30, 92, 88, 69, 68, 16, 76, 20, 84, 78, 64, 69, 87, 83, 77, 25, 68, 94, 69, 64, 83, 87, 68, 88, 23, 9, 17, 17, 64, 88, 93, 85, 87, 10, 19, 17, 29, 20, 82, 88, 83, 86, 83, 81, 100, 100, 125, 116, 89, 93, 73, 88, 90, 84, 88, 64, 31, 66, 95, 82, 82, 90, 24, 22, 31, 23, 30, 81, 79, 6, 20, 14, 22, 19, 17, 87, 70, 8, 10, 19, 17, 29, 20, 86, 64, 1, 25, 13, 20, 22, 17, 29, 23, 29, 16, 30, 17, 85, 68, 66, 91, 71, 90, 81, 64, 10, 4, 23, 87, 65, 83, 95, 95, 4, 17, 71, 68, 84, 64, 94, 66, 92, 92, 10, 19, 10, 22, 66, 86, 68, 16, 75, 82, 82, 84, 68, 81, 69, 22, 13, 25, 66, 70, 93, 13, 20, 65, 87, 66, 25, 66, 71, 84, 68, 107, 86, 81, 85, 87, 67, 20, 12, 22, 19, 122, 89, 74, 80, 91, 88, 80, 25, 1, 25, 6, 16, 17, 96, 93, 95, 82, 91, 64, 69, 16, 119, 99, 20, 0, 6, 26, 7, 13, 16, 110, 94, 90, 7, 2, 15, 23, 78, 6, 13, 30, 20, 112, 70, 68, 91, 83, 103, 92, 85, 127, 88, 66, 27, 2, 5, 7, 23, 4, 2, 17, 30, 127, 127, 98, 125, 117, 27, 20, 93, 95, 95, 82, 22, 119, 92, 84, 95, 94, 31, 20, 116, 94, 66, 86, 90, 81, 30, 7, 7, 0, 24, 0, 23, 7, 26, 1, 22, 103, 86, 80, 81, 75, 94, 27, 4, 5, 3, 25, 5, 6, 30, 12, 20, 71, 87, 70, 23, 87, 83, 90, 82, 68, 69, 69, 107, 94, 82, 16, 4, 23, 19, 1, 15, 80, 4, 0, 83, 11, 3, 85, 3, 3, 12, 2, 1, 82, 93, 1, 82, 84, 82, 80, 85, 82, 4, 95, 82, 13, 0, 1, 13, 85, 0, 3, 15, 4, 7, 8, 2, 87, 81, 80, 3, 9, 3, 80, 4, 4, 4, 84, 7, 6, 90, 6, 3, 6, 2, 85, 0, 5, 84, 93, 5, 4, 82, 17, 15, 23, 83, 72, 77, 69, 85, 82, 66, 26, 83, 89, 93, 88, 94, 90, 17, 11, 20, 95, 89, 67, 77, 108, 5, 108, 22, 31, 23, 17, 31, 30, 12, 20, 84, 78, 64, 69, 87, 83, 77, 25, 68, 67, 89, 76, 5, 22, 13, 25, 31, 19, 65, 87, 70, 86, 91, 31, 118, 69, 93, 86, 95, 90, 10, 17, 16, 18, 23, 81, 95, 85, 91, 83, 83, 101, 107, 126, 119, 94, 91, 68, 88, 88, 85, 87, 67, 28, 89, 89, 71, 67, 109, 1, 100, 30, 20, 26, 22, 19, 24, 17, 25, 25, 28, 20, 25, 17, 68, 86, 68, 81, 84, 24, 102, 84, 80, 81, 69, 83, 66, 4, 16, 20, 26, 22, 81, 89, 85, 95, 93, 82, 97, 99, 127, 119, 88, 91, 64, 86, 89, 81, 95, 66, 28, 69, 83, 86, 92, 69, 81, 67, 31, 20, 28, 22, 23, 22, 16, 29, 17, 29, 20, 31, 17, 64, 88, 69, 85, 92, 25, 97, 68, 83, 66, 20, 118, 83, 84, 88, 64, 10, 17, 16, 18, 23, 81, 95, 85, 91, 83, 83, 101, 107, 126, 119, 94, 91, 68, 88, 88, 85, 87, 67, 28, 68, 69, 81, 69, 105, 81, 94, 82, 90, 69, 31, 20, 28, 22, 23, 22, 16, 29, 17, 29, 20, 31, 17, 64, 88, 69, 85, 92, 25, 103, 82, 85, 29, 127, 82, 64, 82, 94, 25, 115, 83, 67, 77, 10, 81, 92, 70, 64, 78, 25, 23, 16, 23, 31, 17, 30, 19, 71, 87, 66, 88, 90, 27, 98, 83, 87, 26, 112, 85, 77, 84, 92, 28, 123, 91, 83, 83, 13, 90, 88, 70, 66, 25, 19, 30, 22, 27, 25, 31, 19, 65, 87, 70, 86, 91, 31, 106, 82, 87, 28, 112, 81, 67, 85, 88, 20, 100, 93, 69, 83, 9, 68, 87, 93, 92, 26, 91, 67, 95, 83, 94, 88, 31, 30, 30, 20, 26, 22, 28, 16, 70, 81, 75, 86, 89, 30, 110, 25, 101, 83, 65, 76, 82, 71, 69, 83, 80, 26, 97, 89, 77, 95, 9, 105, 123, 120, 127, 66, 68, 73, 101, 81, 64, 67, 81, 68, 66, 31, 30, 30, 15, 17, 83, 76, 67, 68, 81, 90, 67, 26, 89, 83, 85, 83, 83, 66, 74, 23, 9, 17, 122, 85, 90, 70, 81, 23, 103, 88, 80, 66, 82, 88, 68, 93, 23, 94, 71, 25, 17, 85, 89, 82, 66, 86, 94, 80, 22, 31, 20, 8, 22, 75, 25, 16, 123, 67, 95, 83, 94, 88, 23, 3, 23, 92, 94, 69, 64, 108, 7, 109, 21, 23, 19, 99, 83, 82, 82, 68, 85, 75, 16, 14, 17, 68, 81, 81, 83, 66, 92, 69, 24, 17, 17, 97, 68, 83, 66, 20, 118, 83, 84, 88, 64, 16, 12, 16, 76, 68, 81, 67, 105, 85, 80, 83, 94, 77, 27, 20, 22, 101, 81, 84, 27, 118, 92, 67, 87, 89, 27, 112, 82, 69, 68, 30, 13, 20, 22, 83, 89, 71, 66, 73, 30, 27, 20, 22, 101, 81, 84, 27, 118, 92, 67, 87, 89, 27, 121, 88, 82, 85, 30, 13, 20, 22, 85, 91, 69, 69, 23, 21, 23, 19, 98, 83, 87, 26, 112, 85, 77, 84, 92, 28, 101, 93, 67, 83, 23, 3, 23, 19, 66, 87, 89, 82, 27, 95, 75, 94, 83, 88, 88, 19, 27, 22, 23, 97, 26, 102, 84, 71, 65, 82, 69, 68, 92, 83, 25, 102, 95, 64, 95, 17, 10, 25, 16, 108, 124, 122, 124, 67, 66, 64, 107, 82, 69, 68, 83, 71, 67, 17, 16, 68, 23, 14, 17, 77, 73, 12, 22, 70, 88, 69, 20, 68, 69, 81, 69, 22, 13, 25, 68, 64, 67, 24, 89, 86, 66, 83, 81, 31, 27, 13, 91, 81, 67, 87, 16, 87, 86, 89, 84, 11, 22, 66, 69, 85, 75, 21, 20, 82, 89, 90, 67, 83, 94, 77, 10, 22, 25, 109, 106, 21, 107, 26, 16, 21, 27, 24, 13, 20, 94, 80, 16, 17, 66, 71, 84, 68, 29, 76, 22, 70, 88, 69, 20, 80, 85, 87, 82, 70, 68, 74, 104, 87, 94, 88, 64, 69, 89, 92, 74, 23, 9, 17, 67, 71, 82, 68, 107, 8, 106, 20, 26, 22, 19, 75, 17, 16, 18, 23, 85, 82, 85, 81, 71, 66, 67, 102, 94, 80, 10, 22, 81, 79, 66, 66, 88, 84, 64, 31, 70, 70, 88, 78, 2, 25, 28, 9, 17, 17, 68, 86, 68, 81, 84, 24, 117, 82, 83, 68, 67, 69, 29, 122, 88, 90, 69, 68, 91, 91, 69, 13, 30, 23, 31, 17, 83, 90, 84, 89, 84, 92, 98, 102, 120, 117, 91, 90, 70, 95, 87, 82, 90, 69, 30, 85, 84, 85, 85, 73, 67, 71, 110, 85, 91, 89, 66, 66, 86, 91, 71, 24, 22, 31, 23, 17, 31, 30, 12, 20, 88, 80, 20, 31, 122, 81, 84, 71, 85, 31, 102, 88, 86, 66, 86, 86, 69, 89, 31, 95, 71, 31, 17, 81, 87, 83, 70, 94, 95, 80, 16, 31, 25, 66, 23, 81, 73, 66, 70, 86, 85, 68, 23, 95, 81, 80, 82, 81, 69, 69, 107, 30, 118, 87, 84, 70, 64, 68, 27, 115, 86, 89, 64, 67, 89, 88, 68, 17, 109, 25, 10, 20, 80, 85, 87, 82, 70, 68, 74, 104, 87, 94, 88, 64, 69, 89, 92, 74, 12, 20, 76, 22, 73, 23, 83, 72, 77, 69, 85, 82, 66, 26, 68, 66, 66, 92, 86, 89, 110, 70, 70, 88, 78, 2, 25, 10, 20, 25, 17, 68, 86, 68, 81, 84, 24, 123, 67, 95, 83, 94, 88, 13, 30, 23, 31, 17, 83, 90, 84, 89, 84, 92, 98, 102, 120, 117, 91, 90, 70, 95, 87, 82, 90, 69, 30, 92, 88, 69, 68, 98, 6, 105, 24, 22, 31, 23, 17, 31, 30, 30, 20, 26, 22, 28, 16, 70, 81, 75, 86, 89, 30, 100, 81, 81, 83, 66, 92, 69, 9, 22, 22, 31, 23, 83, 94, 90, 88, 80, 84, 99, 102, 126, 117, 95, 84, 71, 91, 95, 83, 90, 67, 30, 88, 86, 68, 64, 106, 7, 105, 23, 29, 16, 30, 24, 19, 24, 22, 31, 23, 17, 31, 30, 30, 20, 26, 22, 28, 16, 70, 81, 75, 86, 89, 30, 99, 71, 82, 68, 29, 120, 80, 81, 95, 66, 9, 16, 22, 27, 25, 82, 90, 82, 89, 80, 82, 99, 98, 112, 116, 91, 92, 70, 91, 89, 83, 94, 77, 31, 65, 66, 83, 70, 104, 87, 87, 92, 89, 64, 24, 22, 31, 23, 17, 31, 30, 30, 15, 17, 83, 76, 67, 68, 81, 90, 67, 26, 66, 66, 70, 82, 87, 93, 102, 95, 81, 80, 82, 81, 69, 69, 16, 4, 23, 120, 80, 91, 68, 86, 24, 96, 85, 86, 64, 87, 89, 70, 90, 24, 89, 74, 31, 19, 80, 88, 80, 69, 89, 89, 93, 16, 29, 17, 9, 20, 76, 22, 23, 118, 69, 93, 86, 95, 90, 16, 12, 16, 81, 88, 71, 69, 109, 5, 106, 26, 16, 30, 101, 81, 87, 83, 70, 82, 68, 23, 3, 23, 92, 94, 69, 64, 108, 7, 109, 25, 28, 20, 22, 25, 19, 27, 22, 23, 108, 68, 81, 67, 27, 117, 80, 83, 94, 77, 16, 14, 17, 67, 71, 82, 68, 111, 88, 80, 81, 95, 66, 20, 74, 22, 10, 25, 76, 73, 10, 22, 73, 23, 68, 85, 77, 66, 70, 95, 22, 81, 79, 66, 66, 88, 84, 64, 10, 22, 73, 30, 24, 83, 88, 91, 88, 25, 77, 73, 27]);
       var filter_items = {};
       var choice = {
         season: 0,
@@ -8512,14 +8352,15 @@
       var extract = {};
       var object = _object;
       var select_title = '';
-      var prefer_http = Lampa.Storage.field('online_mod_prefer_http') === true;
+      Lampa.Storage.field('online_mod_prefer_http') === true;
       var prox = component.proxy('cdnvideohub');
-      var embed = atob('aHR0cHM6Ly9wbGFwaS5jZG52aWRlb2h1Yi5jb20vYXBpL3YxL3BsYXllci9zdj9wdWI9MTI=');
+      var host = 'https://player.cdnvideohub.com';
+      var ref = host + '/';
+      var embed = ref + 'playerjs';
       var filter_items = {};
       var choice = {
         season: 0,
-        voice: 0,
-        voice_name: ''
+        voice: 0
       };
       /**
        * Начать поиск
@@ -8536,16 +8377,17 @@
           return;
         }
 
-        var url = Lampa.Utils.addUrlComponent(embed, 'id=' + kinopoisk_id);
-        url = Lampa.Utils.addUrlComponent(url, 'aggr=kp');
+        var url = Lampa.Utils.addUrlComponent(embed, 'partner=9&kid=' + kinopoisk_id);
         network.clear();
         network.timeout(10000);
-        network["native"](component.proxyLink(url, prox), function (json) {
-          parse(json);
+        network["native"](component.proxyLink(url, prox), function (str) {
+          parse(str);
         }, function (a, c) {
-          if (a.status == 500 && !a.responseText || a.status == 0 && a.statusText !== 'timeout') {
-            parse(null);
+          if (a.status == 404 && !a.responseText || a.status == 0 && a.statusText !== 'timeout') {
+            parse('');
           } else component.empty(network.errorDecode(a, c));
+        }, false, {
+          dataType: 'text'
         });
       };
 
@@ -8561,8 +8403,7 @@
         component.reset();
         choice = {
           season: 0,
-          voice: 0,
-          voice_name: ''
+          voice: 0
         };
         filter();
         append(filtred());
@@ -8578,7 +8419,6 @@
 
       this.filter = function (type, a, b) {
         choice[a.stype] = b.index;
-        if (a.stype == 'voice') choice.voice_name = filter_items.voice[b.index];
         component.reset();
         filter();
         append(filtred());
@@ -8594,43 +8434,64 @@
         extract = null;
       };
 
-      function parse(json) {
+      function parse(str) {
         component.loading(false);
+        str = (str || '').replace(/\n/g, '');
+        var find = str.match(/Playerjs\(({.*?})\);/);
+        var json;
 
-        if (json && json.video && json.video.forEach) {
+        try {
+          json = find && (0, eval)('"use strict"; (function(){ var preroll = [], pauseroll = [], midroll = []; return ' + find[1] + '; })();');
+        } catch (e) {}
+
+        if (json && json.file) {
           var seasons = [];
-          var items = json.video;
-          items.sort(function (a, b) {
-            var cmp = (a.season || 0) - (b.season || 0);
-            if (cmp) return cmp;
-            cmp = (a.episode || 0) - (b.episode || 0);
-            if (cmp) return cmp;
-            if ((a.voice_studio || a.voice_type || '') > (b.voice_studio || b.voice_type || '')) return 1;
-            if ((a.voice_studio || a.voice_type || '') < (b.voice_studio || b.voice_type || '')) return -1;
-            cmp = (a.unitedVideoId || 0) - (b.unitedVideoId || 0);
-            return cmp;
-          });
+          var season_count = 0;
+          var items = json.file.forEach ? json.file : [json.file];
           items.forEach(function (data) {
-            if (data.season != null) {
-              var s = seasons.filter(function (s) {
-                return s.id === data.season;
-              })[0];
+            if (data.folder) {
+              season_count++;
+              if (!data.title) data.title = '';
+              var str_s = data.title.match(/(Season|Сезон) (\d+)/i);
+              if (str_s) data.season = parseInt(str_s[2]);else data.season = season_count;
 
-              if (!s) {
-                s = {
+              if (!seasons.some(function (s) {
+                return s.id === data.season;
+              })) {
+                seasons.push({
                   id: data.season,
-                  title: Lampa.Lang.translate('torrent_serial_season') + ' ' + data.season,
-                  voices: []
-                };
-                seasons.push(s);
+                  title: str_s || !data.title ? Lampa.Lang.translate('torrent_serial_season') + ' ' + data.season : data.title
+                });
               }
 
-              var voice = data.voice_studio || data.voice_type || '';
-              if (s.voices.indexOf(voice) == -1) s.voices.push(voice);
+              var episode_count = 0;
+              data.folder.forEach(function (ep) {
+                episode_count++;
+                if (!ep.title) ep.title = '';
+                var str_e = ep.title.match(/(Episode|Серия) (\d+)/i);
+                if (str_e) ep.episode = parseInt(str_e[2]);else ep.episode = episode_count;
+              });
+            } else if (!data.title || data.title === 'Season 0 - Episode 0') {
+              data.title = '';
+            } else {
+              var str_s_e = data.title.match(/Season (\d+) - Episode (\d+)/i);
+
+              if (str_s_e) {
+                data.season = parseInt(str_s_e[1]);
+                data.episode = parseInt(str_s_e[2]);
+
+                if (!seasons.some(function (s) {
+                  return s.id === data.season;
+                })) {
+                  seasons.push({
+                    id: data.season,
+                    title: Lampa.Lang.translate('torrent_serial_season') + ' ' + data.season
+                  });
+                }
+              }
             }
           });
           extract = {
-            title_name: json.title_name || select_title,
             items: items,
             seasons: seasons
           };
@@ -8651,17 +8512,6 @@
           voice: []
         };
         if (!filter_items.season[choice.season]) choice.season = 0;
-        var s = extract.seasons[choice.season];
-        if (s) filter_items.voice = s.voices;
-        if (!filter_items.voice[choice.voice]) choice.voice = 0;
-
-        if (choice.voice_name) {
-          var inx = filter_items.voice.indexOf(choice.voice_name);
-          if (inx == -1) choice.voice = 0;else if (inx !== choice.voice) {
-            choice.voice = inx;
-          }
-        }
-
         component.filter(filter_items, choice);
       }
       /**
@@ -8676,157 +8526,45 @@
         if (extract.seasons.length) {
           var season_id = extract.seasons[choice.season] && extract.seasons[choice.season].id;
           extract.items.forEach(function (data) {
-            var voice = data.voice_studio || data.voice_type || '';
-
-            if (data.season == season_id && voice == filter_items.voice[choice.voice]) {
-              var items = extractItems(data.sources);
-              filtred.push({
-                title: component.formatEpisodeTitle(season_id, data.episode),
-                quality: items[0] && items[0].quality ? items[0].quality + 'p' : '360p ~ 1080p',
-                info: ' / ' + Lampa.Utils.shortText(voice, 50) + (data.unitedVideoId ? ' / id: ' + data.unitedVideoId : ''),
-                data_id: data.unitedVideoId,
-                season: '' + season_id,
-                episode: data.episode,
-                media: items
-              });
+            if (data.season == season_id) {
+              if (data.folder) {
+                data.folder.forEach(function (ep) {
+                  filtred.push({
+                    title: component.formatEpisodeTitle(season_id, ep.episode),
+                    quality: '360p ~ 1080p',
+                    info: ep.id ? ' / id: ' + ep.id : '',
+                    data_id: ep.id,
+                    season: '' + season_id,
+                    episode: ep.episode,
+                    file: ep.file
+                  });
+                });
+              } else {
+                filtred.push({
+                  title: component.formatEpisodeTitle(season_id, data.episode),
+                  quality: '360p ~ 1080p',
+                  info: data.id ? ' / id: ' + data.id : '',
+                  data_id: data.id,
+                  season: '' + season_id,
+                  episode: data.episode,
+                  file: data.file
+                });
+              }
             }
           });
         } else {
           extract.items.forEach(function (data) {
-            var items = extractItems(data.sources);
             filtred.push({
-              title: data.voice_studio || data.voice_type || extract.title_name,
-              quality: items[0] && items[0].quality ? items[0].quality + 'p' : '360p ~ 1080p',
-              info: data.unitedVideoId ? ' / id: ' + data.unitedVideoId : '',
-              data_id: data.unitedVideoId,
-              media: items
+              title: data.title || select_title,
+              quality: '360p ~ 1080p',
+              info: data.id ? ' / id: ' + data.id : '',
+              data_id: data.id,
+              file: data.file
             });
           });
         }
 
         return filtred;
-      }
-      /**
-       * Получить потоки
-       * @param {String} str
-       * @returns array
-       */
-
-
-      function extractItems(sources) {
-        if (!sources) return [];
-        var items = [];
-        /* 4K и 2K перепутаны */
-
-        if (sources.mpeg2kUrl) {
-          items.push({
-            label: '4K',
-            quality: 2160,
-            file: sources.mpeg2kUrl
-          });
-        }
-
-        if (sources.mpeg4kUrl) {
-          items.push({
-            label: '2K',
-            quality: 1440,
-            file: sources.mpeg4kUrl
-          });
-        }
-
-        if (sources.mpegQhdUrl) {
-          items.push({
-            label: '1440p',
-            quality: 1440,
-            file: sources.mpegQhdUrl
-          });
-        }
-
-        if (sources.mpegFullHdUrl) {
-          items.push({
-            label: '1080p',
-            quality: 1080,
-            file: sources.mpegFullHdUrl
-          });
-        }
-
-        if (sources.mpegHighUrl) {
-          items.push({
-            label: '720p',
-            quality: 720,
-            file: sources.mpegHighUrl
-          });
-        }
-
-        if (sources.mpegMediumUrl) {
-          items.push({
-            label: '480p',
-            quality: 480,
-            file: sources.mpegMediumUrl
-          });
-        }
-
-        if (sources.mpegLowUrl) {
-          items.push({
-            label: '360p',
-            quality: 360,
-            file: sources.mpegLowUrl
-          });
-        }
-
-        if (sources.mpegLowestUrl) {
-          items.push({
-            label: '240p',
-            quality: 240,
-            file: sources.mpegLowestUrl
-          });
-        }
-
-        if (sources.mpegTinyUrl) {
-          items.push({
-            label: '144p',
-            quality: 144,
-            file: sources.mpegTinyUrl
-          });
-        }
-
-        if (!items.length && sources.hlsUrl) {
-          items.push({
-            label: 'HLS',
-            quality: NaN,
-            file: sources.hlsUrl
-          });
-        }
-
-        items.forEach(function (item) {
-          item.file = component.fixLinkProtocol(item.file, prefer_http, true);
-        });
-        return items;
-      }
-      /**
-       * Найти поток
-       * @param {Object} element
-       * @returns string
-       */
-
-
-      function getFile(element) {
-        var file = '';
-        var quality = false;
-        var items = element.media;
-
-        if (items && items.length) {
-          file = items[0].file;
-          quality = {};
-          items.forEach(function (item) {
-            quality[item.label] = item.file;
-          });
-        }
-
-        return {
-          file: file,
-          quality: quality
-        };
       }
       /**
        * Показать файлы
@@ -8840,7 +8578,7 @@
           var hash = Lampa.Utils.hash(element.season ? [element.season, element.season > 10 ? ':' : '', element.episode, object.movie.original_title].join('') : object.movie.original_title);
           var view = Lampa.Timeline.view(hash);
           var item = Lampa.Template.get('online_mod', element);
-          var hash_file = Lampa.Utils.hash(element.season ? [element.season, element.season > 10 ? ':' : '', element.episode, object.movie.original_title, filter_items.voice[choice.voice]].join('') : object.movie.original_title + element.data_id);
+          var hash_file = Lampa.Utils.hash(element.season ? [element.season, element.season > 10 ? ':' : '', element.episode, object.movie.original_title, element.data_id].join('') : object.movie.original_title + element.data_id);
           element.timeline = view;
           item.append(Lampa.Timeline.render(view));
 
@@ -8851,23 +8589,19 @@
           if (viewed.indexOf(hash_file) !== -1) item.append('<div class="torrent-item__viewed">' + Lampa.Template.get('icon_star', {}, true) + '</div>');
           item.on('hover:enter', function () {
             if (object.movie.id) Lampa.Favorite.add('history', object.movie, 100);
-            var extra = getFile(element);
 
-            if (extra.file) {
+            if (element.file) {
               var playlist = [];
               var first = {
-                url: component.getDefaultQuality(extra.quality, extra.file),
-                quality: component.renameQualityMap(extra.quality),
+                url: component.getDefaultQuality(null, element.file),
                 timeline: element.timeline,
                 title: element.season ? element.title : select_title + (element.title == select_title ? '' : ' / ' + element.title)
               };
 
               if (element.season) {
                 items.forEach(function (elem) {
-                  var ex = getFile(elem);
                   playlist.push({
-                    url: component.getDefaultQuality(ex.quality, ex.file),
-                    quality: component.renameQualityMap(ex.quality),
+                    url: component.getDefaultQuality(null, elem.file),
                     timeline: elem.timeline,
                     title: elem.title
                   });
@@ -8894,7 +8628,9 @@
             viewed: viewed,
             hash_file: hash_file,
             file: function file(call) {
-              call(getFile(element));
+              call({
+                file: element.file
+              });
             }
           });
         });
@@ -9290,7 +9026,7 @@
       var object = _object;
       var select_title = '';
       var prox = component.proxy('anilibria2');
-      var embed = 'https://api.anilibria.app/api/v1/';
+      var embed = 'https://anilibria.wtf/api/v1/';
       var filter_items = {};
       var choice = {
         season: 0,
@@ -11854,8 +11590,7 @@
         source: new redheadsound(this, object, true),
         search: true,
         kp: false,
-        imdb: true,
-        disabled: true
+        imdb: true
       }, {
         name: 'cdnvideohub',
         title: 'CDNVideoHub',
@@ -11869,8 +11604,7 @@
         source: new anilibria(this, object),
         search: true,
         kp: false,
-        imdb: false,
-        disabled: true
+        imdb: false
       }, {
         name: 'anilibria2',
         title: 'AniLibria.top',
@@ -11885,7 +11619,7 @@
         search: true,
         kp: false,
         imdb: false,
-        disabled: true
+        disabled: disable_dbg
       }, {
         name: 'kodik',
         title: 'Kodik',
@@ -13126,14 +12860,13 @@
       };
     }
 
-    var mod_version = '08.08.2025';
+    var mod_version = '02.07.2025';
     console.log('App', 'start address:', window.location.href);
     var isMSX = !!(window.TVXHost || window.TVXManager);
     var isTizen = navigator.userAgent.toLowerCase().indexOf('tizen') !== -1;
     var isIFrame = window.parent !== window;
     var isLocal = !startsWith(window.location.protocol, 'http');
     var androidHeaders = Lampa.Platform.is('android') && Utils.checkAndroidVersion(339);
-    var filmixHost = Utils.filmixHost();
     console.log('App', 'is MSX:', isMSX);
     console.log('App', 'is Tizen:', isTizen);
     console.log('App', 'is iframe:', isIFrame);
@@ -13667,11 +13400,11 @@
         zh: '将设备添加到 Filmix'
       },
       online_mod_filmix_modal_text: {
-        ru: 'Введите его на странице ' + filmixHost + '/consoles в вашем авторизованном аккаунте!',
-        uk: 'Введіть його на сторінці ' + filmixHost + '/consoles у вашому авторизованому обліковому записі!',
-        be: 'Увядзіце яго на старонцы ' + filmixHost + '/consoles у вашым аўтарызаваным акаўнце!',
-        en: 'Enter it at ' + filmixHost + '/consoles in your authorized account!',
-        zh: '在您的授权帐户中的 ' + filmixHost + '/consoles 中输入！'
+        ru: 'Введите его на странице https://filmix.quest/consoles в вашем авторизованном аккаунте!',
+        uk: 'Введіть його на сторінці https://filmix.quest/consoles у вашому авторизованому обліковому записі!',
+        be: 'Увядзіце яго на старонцы https://filmix.quest/consoles у вашым аўтарызаваным акаўнце!',
+        en: 'Enter it at https://filmix.quest/consoles in your authorized account!',
+        zh: '在您的授权帐户中的 https://filmix.quest/consoles 中输入！'
       },
       online_mod_filmix_modal_wait: {
         ru: 'Ожидаем код',
