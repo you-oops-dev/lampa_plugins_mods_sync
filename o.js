@@ -5,17 +5,14 @@
   var plugins = Lampa.Storage.get('plugins', '[]')
 
   plugins.forEach(function(plug) {
-    if (plug.url.indexOf('skaztv.online') >= 0) {
+    if (plug.url.indexOf('o.js') >= 0) {
       updateplugins = true;
-      plug.url = (plug.url + '').replace('skaztv.online/o.js', 'lampaplugins.github.io/store/o.js');
-    }
-	if (plug.url.indexOf('skaz.tv') >= 0) {
-      updateplugins = true;
-      plug.url = (plug.url + '').replace('skaz.tv/o.js', 'lampaplugins.github.io/store/o.js');
+	  plug.url = (plug.url + '').replace('https://lampaplugins.github.io/store/o.js', 'https://skaz.tv/onlines.js');
+	  plug.url = (plug.url + '').replace('http://newtv.mail66.org/o.js', 'https://skaz.tv/onlines.js');
     }
   })
 
   if (updateplugins)
     Lampa.Storage.set('plugins', plugins);
-  $.getScript('https://lampaplugins.github.io/store/o.js');
+  $.getScript('https://skaz.tv/onlines.js');
 })();
