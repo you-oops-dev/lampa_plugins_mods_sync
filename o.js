@@ -1177,7 +1177,8 @@ else if (element.url) {
                 image.append('<div class="online-prestige__episode-number">' + ('0' + episode.episode_number).slice(-2) + '</div>');
               };
               img.src = Lampa.TMDB.image('t/p/w300' + episode.still_path);
-              images.push(img);
+
+			  images.push(img);
             } else {
               loader.remove();
               image.append('<div class="online-prestige__episode-number">' + ('0' + episode.episode_number).slice(-2) + '</div>');
@@ -1459,7 +1460,6 @@ else if (element.url) {
       search: function(params, oncomplite) {
         function searchComplite(links) {
           var keys = Lampa.Arrays.getKeys(links);
-
           if (keys.length) {
             var status = new Lampa.Status(keys.length);
 
@@ -1471,16 +1471,19 @@ else if (element.url) {
 
                 if (line && line.data && line.type == 'similar') {
                   var cards = line.data.map(function(item) {
+					 
                     item.title = Lampa.Utils.capitalizeFirstLetter(item.title);
                     item.release_date = item.year || '0000';
                     item.balanser = spiderUri;
                     if (item.img !== undefined) {
-                      if (item.img.charAt(0) === '/')
-                        item.img = Defined.localhost + item.img.substring(1);
-                      if (item.img.indexOf('/proxyimg') !== -1)
-                        item.img = account(item.img);
+            function getDomain(url) { var match = url.match(/^https?:\/\/([^\/\?#]+)(?:[\/\?#]|$)/i); return match && match[1];}
+		  if (item.img !== undefined) {
+		    if (item.img.charAt(0) === '/')
+		      item.img = 'http://'+getDomain(item.url)+'/' + item.img.substring(1);
+		    if (item.img.indexOf('/proxyimg') !== -1)
+		      item.img = account(item.img);
+		  }
                     }
-
                     return item;
                   })
 
