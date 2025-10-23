@@ -68,6 +68,7 @@ var randomUrl = vybor[randomIndex];
     if (url.indexOf('uid=') == -1) {
       var uid = Lampa.Storage.get('lampac_unic_id', '');
       if (uid) url = Lampa.Utils.addUrlComponent(url, 'uid=' + encodeURIComponent(uid));
+	  url = Lampa.Utils.addUrlComponent(url, 'ua=' + encodeURIComponent(Lampa.Platform.get()));
     }
     if (url.indexOf('token=') == -1) {
       var token = '';
