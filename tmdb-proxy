@@ -38,7 +38,7 @@
 
       this.broken = function (url) {
         mirrors.forEach(function (mirror) {
-          if (url.indexOf('://' + mirror) !== -1) {
+          if (url && url.indexOf('://' + mirror) !== -1) {
             var now = Date.now();
             var s = stat[mirror];
             s.errors.push(now);
