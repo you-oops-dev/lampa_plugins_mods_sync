@@ -1,34 +1,350 @@
-<!DOCTYPE html><html lang="en"  data-adblockkey=MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBANnylWw2vLY4hUn9w06zQKbhKBfvjFUCsdFlb6TdQhxb9RXWXuI4t31c+o8fYOv/s8q1LGPga3DE1L/tHU4LENMCAwEAAQ==_nBoE92RuY1ZDeXn+eS1kj6PlNVRWShprXLh9egUFMvZBU8uy+rO2dacKhugOOb+ZpS7mkhzlL8MA+d84gPsYrA==><head><meta charset="utf-8"><title>rootu.top&nbsp;-&nbsp;rootu Resources and Information.</title><meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0"><meta name="description" content="rootu.top is your first and best source for all of the information you’re looking for. From general topics to more of what you would expect to find here, rootu.top has it all. We hope you find what you are searching for!"><link
-        rel="icon"
-        type="image/png"
-        href="//img.sedoparking.com/templates/logos/sedo_logo.png"
-/><style>
-        .text-center{text-align:center}.left,.container-left{float:left}.right,.container-right{float:right}.full-width{clear:both}.clear,.clearfix{*zoom:1}.clear::before,.clear::after,.clearfix::before,.clearfix::after{content:" ";display:table}.clear::after,.clearfix::after{clear:both}#container-buybox:empty,#container-domain:empty,#container-content:empty,#container-searchbox:empty,#container-disclaimer:empty,#container-imprint:empty,#container-contact-us:empty,#container-privacy-policy:empty,#container-privacyPolicy:empty,#container-relatedlinks:empty,#container-cookie-message:empty,#left:empty,#right:empty,.content-relatedlinks:empty,.container-ads:empty{display:none}h1{font-size:2em;margin:0}h2{font-size:1.33em;margin:0}h3{font-size:1.1em;margin:0}h4{font-size:1em;margin:0}h5{font-size:.83em;margin:0}h6{font-size:.67em;margin:0}ul,li{padding:0;margin:0}/*! normalize.css v1.1.2 | MIT License | git.io/normalize */article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary{display:block}audio,canvas,video{display:inline-block;*display:inline;*zoom:1}audio:not([controls]){display:none;height:0}[hidden]{display:none}html{font-size:100%;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}html,button,input,select,textarea{font-family:sans-serif}body{margin:0}a:focus{outline:thin dotted}a:active,a:hover{outline:0}h1{font-size:2em;margin:0}h2{font-size:1.33em;margin:0}h3{font-size:1.1em;margin:0}h4{font-size:1em;margin:0}h5{font-size:.83em;margin:0}h6{font-size:.67em;margin:0}abbr[title]{border-bottom:1px dotted}b,strong{font-weight:bold}blockquote{margin:.11em 40px}dfn{font-style:italic}hr{-moz-box-sizing:content-box;box-sizing:content-box;height:0}mark{background:#ff0;color:#000}p,pre{margin:.11em 0}code,kbd,pre,samp{font-family:monospace,serif;_font-family:"courier new",monospace;font-size:1em}pre{white-space:pre;white-space:pre-wrap;word-wrap:break-word}q{quotes:none}q:before,q:after{content:"";content:none}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sup{top:-0.5em}sub{bottom:-0.25em}dl,menu,ol,ul{margin:0}dd{margin:0 0 0 40px}menu,ol,ul{padding:0;list-style:none}nav ul,nav ol{list-style:none;list-style-image:none}img{border:0;-ms-interpolation-mode:bicubic}svg:not(:root){overflow:hidden}figure{margin:0}form{margin:0}fieldset{border:0 none;margin:0;padding:0}legend{border:0;padding:0;white-space:normal;*margin-left:-7px}button,input,select,textarea{font-size:100%;margin:0;vertical-align:middle;*vertical-align:middle}button,input{line-height:normal}button,select{text-transform:none}button,html input[type=button],input[type=reset],input[type=submit]{-webkit-appearance:button;cursor:pointer;*overflow:visible}button[disabled],html input[disabled]{cursor:default}input[type=checkbox],input[type=radio]{box-sizing:border-box;padding:0;*height:13px;*width:13px}input[type=search]{-webkit-appearance:textfield;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box}input[type=search]::-webkit-search-cancel-button,input[type=search]::-webkit-search-decoration{-webkit-appearance:none}button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}textarea{overflow:auto;vertical-align:top}table{border-collapse:collapse;border-spacing:0}fieldset{border:none;margin:0;padding:0}#right .vertical h2{padding:0;margin:0}ul,menu,dir{-moz-padding-start:0}li#dose12{position:absolute;top:-500px}.name-silo-container{margin:auto}.name-silo-banner{background:#fff;text-align:center;padding:10px;color:#949494;font-size:.9em}.name-silo-banner a{color:#949494}.right-container{grid-area:1/2/2/6}.left-container{background-image:url("https://img.sedoparking.com/templates/bg/NameSiloLogo.png");background-size:60vw;background-position:center;background-repeat:no-repeat;height:40px;text-align:center;margin:auto;margin-bottom:10px}.content-disclaimer{font-size:10px}.content-disclaimer .sedologo{float:left;padding:0 10px 0 0}.content-disclaimer a:link,.content-disclaimer a:visited{text-decoration:underline}.content-disclaimer a:active,.content-disclaimer a:focus,.content-disclaimer a:hover{text-decoration:none}.content-imprint{clear:both}.content-imprint a:link,.content-imprint a:visited{display:block;text-align:center;margin:0;padding:.5em 30px;text-decoration:underline}.content-imprint a:hover,.content-imprint a:active,.content-imprint a:focus{text-decoration:none}.content-contact-us{clear:both}.content-contact-us a:link,.content-contact-us a:visited{display:block;text-align:center;margin:0;padding:.5em 30px;text-decoration:underline}.content-contact-us a:hover,.content-contact-us a:active,.content-contact-us a:focus{text-decoration:none}.content-privacy-policy #privacy-policy-text{display:none;border-style:solid;border-width:1px;padding:15px;margin-top:40px}.content-privacy-policy #privacy-policy-link{padding:.5em 30px;clear:both}#container-cookie-message{position:fixed;bottom:0;width:100%;background:#5f5f5f;font-size:12px;padding-top:15px;padding-bottom:15px}#container-cookie-message p,#container-cookie-message a{color:#a0a0a0}#container-cookie-message p{margin-left:5%;margin-right:5%}.content-buybox{background:linear-gradient(to bottom, #666666 0%, #010101 100%);border-bottom:1px solid #ccc;word-wrap:break-word;padding:10px 0;text-align:center}.content-buybox a{color:#fff}.content-buybox a:link,.content-buybox a:active,.content-buybox a:visited{text-decoration:none}.content-buybox a:hover{text-decoration:underline}.content-buybox span a{font-weight:bold}.content-buybox p,.content-buybox h2{display:inline;font-size:1.1em}.content-buybox h2{padding-right:.5em;text-transform:uppercase}.content-searchbox{text-align:center}.content-searchbox label{display:none}.content-searchbox input,.content-searchbox button{border-width:1px;border-style:solid;border-radius:10px;padding:5px}.content-searchbox input{width:60%}.content-searchbox button{font-weight:bold;cursor:pointer;margin-left:5px;padding-left:10px;padding-right:10px}.content-webarchive{*zoom:1;padding:0;margin:20px 0 20px 0}.content-webarchive::before,.content-webarchive::after{content:" ";display:table}.content-webarchive::after{clear:both}.content-webarchive h2{font-size:1.2em;font-weight:bold;padding-bottom:20px}.content-webarchive div{width:100%}.content-webarchive div .webarchive-block{padding:7px 0}.content-webarchive div .webarchive-block h3{font-weight:bold}.content-webarchive div .webarchive-block h3 a:link,.content-webarchive div .webarchive-block h3 a:visited{text-decoration:none}.content-webarchive div .webarchive-block h3 a:active,.content-webarchive div .webarchive-block h3 a:focus,.content-webarchive div .webarchive-block h3 a:hover{text-decoration:underline}.content-webarchive div .webarchive-block ul{list-style:none;list-style-position:inside}.content-webarchive div .webarchive-block ul li{padding:9px 8px 8px 10px;background:linear-gradient(to bottom, #444 0, #363636 100%)}.content-webarchive div .webarchive-block ul li:first-child{border-top:1px solid #ccc;border-top-left-radius:10px;border-top-right-radius:10px}.content-webarchive div .webarchive-block ul li{border-right:1px solid #ccc;border-bottom:1px solid #ccc;border-left:1px solid #ccc}.content-webarchive div .webarchive-block ul li:last-child{border-bottom:1px solid #ccc;border-bottom-left-radius:10px;border-bottom-right-radius:10px}.content-webarchive div .webarchive-block ul li a{font-size:20px;font-weight:bold}.content-webarchive div .webarchive-block ul li a:after{content:url("//img.sedoparking.com/templates/brick_gfx/1006/bullet_lime.gif");float:right;padding:0}.content-webarchive div .webarchive-block ul li a:link,.content-webarchive div .webarchive-block ul li a:visited{text-decoration:none}.content-webarchive div .webarchive-block ul li a:active,.content-webarchive div .webarchive-block ul li a:focus,.content-webarchive div .webarchive-block ul li a:hover{text-decoration:underline}.twot #container-header{margin-top:35%}#container-footer{margin-top:100%}.content-disclaimer,.content-privacy-policy,.content-imprint,.content-contact-us{font-size:.9em}body{background:#2d2d2d}#container-footer{color:#595959}#container-footer a{color:#595959}.domain h1{color:#595959}.content-relatedlinks h2 span{color:#595959}.content-relatedlinks ul li{border-bottom-color:#ccc}.content-relatedlinks ul a:link,.content-relatedlinks ul a:visited{color:#9fd801}.content-relatedlinks ul a:hover,.content-relatedlinks ul a:active,.content-relatedlinks ul a:focus{color:#e57921}.content-relatedlinks ul p{color:#c1c1c1}.content-relatedlinks ul p a:link,.content-relatedlinks ul p a:visited{color:#c9ec6a}.content-relatedlinks ul p a:hover,.content-relatedlinks ul p a:active,.content-relatedlinks ul p a:focus{color:#e57921}.content-ads h2{color:#595959;font-size:15px;font-weight:normal}.content-ads ul li h3 a:link,.content-ads ul li h3 a:visited{color:#9fd801}.content-ads ul li h3 a:hover,.content-ads ul li h3 a:active,.content-ads ul li h3 a:focus{color:#e57921}.content-ads ul li p{color:#c1c1c1}.content-ads ul li p a:link,.content-ads ul li p a:visited{color:#c9ec6a}.content-ads ul li p a:hover,.content-ads ul li p a:active,.content-ads ul li p a:focus{color:#e57921}.content-searchbox input{background-color:#eee;border-color:#b2b2b2}.content-searchbox button{background:none repeat scroll 0 0 rgba(0,0,0,0);color:#c9ec6a;border-color:#b2b2b2;background-color:#363636}.content-webarchive h2{color:#999}.content-webarchive div div.webarchive-block h3 a:link,.content-webarchive div div.webarchive-block h3 a:visited{color:#595959}.content-webarchive div div.webarchive-block h3 a:active,.content-webarchive div div.webarchive-block h3 a:focus,.content-webarchive div div.webarchive-block h3 a:hover{color:#e57921;text-decoration:none}.content-webarchive div div.webarchive-block ul li a:link,.content-webarchive div div.webarchive-block ul li a:visited{color:#9fd801}.content-webarchive div div.webarchive-block ul li a:hover,.content-webarchive div div.webarchive-block ul li a:active,.content-webarchive div div.webarchive-block ul li a:focus{color:#e57921}body{font-size:14px;font-family:Arial,Helvetica,Verdana,"Lucida Grande",sans-serif}.container-ads,.container-relatedlinks{overflow:hidden}#container-content{margin-top:25px}#container-header{padding-top:2%}#container-header,#container-searchbox,#container-imprint,#container-privacyPolicy{margin-left:5%;margin-right:5%}#container-searchbox{padding-bottom:20px}#container-footer>*{font-size:10px;padding:0 10px}body.cookie-message-enabled{padding-bottom:300px}.container-ads{padding:0}.content-relatedlinks{margin:0 0 100px 0}.content-relatedlinks h2{padding:3px 4px}.domain h1{font-size:2.2em;font-weight:bold;text-decoration:none;text-transform:lowercase}#container-sedologo{display:block;text-align:center}.oneclick.twot #container-content{margin-left:5%;margin-right:5%}.content-ads ul li{padding:.6em 0}.content-ads ul li::before{content:url("//img.sedoparking.com/templates/brick_gfx/1006/bullet_lime.gif");float:left;padding:3px 8px 0 6px}.content-ads ul li div{padding-left:35px}.content-ads ul li div h3 a{font-size:23px;text-transform:uppercase;font-weight:bold}.content-ads ul li div p{padding:.3em 0 .6em 0;font-size:1.2em}.content-ads ul li div p a{font-size:1em}ul li{word-wrap:break-word}.content-relatedlinks ul li{border-bottom-style:solid;border-bottom-width:1px;padding:10px 4px}.content-relatedlinks ul li::before{content:url("//img.sedoparking.com/templates/brick_gfx/1006/bullet_lime.gif");float:left;padding:3px 8px 0 6px}.content-relatedlinks ul li:last-child{border-bottom:none}.content-relatedlinks ul li a:link{font-size:22px;font-weight:bold}.content-relatedlinks ul li a:link,.content-relatedlinks ul li a:visited{text-decoration:none}.content-relatedlinks ul li a:hover,.content-relatedlinks ul li a:active,.content-relatedlinks ul li a:focus{text-decoration:underline}.btn-success{display:inline-block;border-style:solid;border-radius:5px;padding:15px 25px;text-align:center;text-decoration:none;cursor:pointer;margin:5px;transition:.3s;background-color:#218838;border-color:#218838;color:#fff;font-size:x-large}.btn-success:hover{display:inline-block;border-style:solid;border-radius:5px;padding:15px 25px;text-align:center;text-decoration:none;cursor:pointer;margin:5px;transition:.3s;background-color:#1a6b2c;border-color:#1a6b2c;color:#fff;font-size:x-large}.btn-secondary{display:inline-block;border-style:solid;border-radius:5px;padding:15px 25px;text-align:center;text-decoration:none;cursor:pointer;margin:5px;transition:.3s;background-color:#8c959c;border-color:#8c959c;color:#fff;font-size:medium}.btn-secondary:hover{display:inline-block;border-style:solid;border-radius:5px;padding:15px 25px;text-align:center;text-decoration:none;cursor:pointer;margin:5px;transition:.3s;background-color:#727c83;border-color:#727c83;color:#fff;font-size:medium}.btn-success-sm{display:inline-block;border-style:solid;border-radius:5px;padding:15px 25px;text-align:center;text-decoration:none;cursor:pointer;margin:5px;transition:.3s;background-color:#218838;border-color:#218838;color:#fff;font-size:x-large;font-size:initial}.btn-success-sm:hover{display:inline-block;border-style:solid;border-radius:5px;padding:15px 25px;text-align:center;text-decoration:none;cursor:pointer;margin:5px;transition:.3s;background-color:#1a6b2c;border-color:#1a6b2c;color:#fff;font-size:x-large;font-size:initial}.btn-secondary-sm{display:inline-block;border-style:solid;border-radius:5px;padding:15px 25px;text-align:center;text-decoration:none;cursor:pointer;margin:5px;transition:.3s;background-color:#8c959c;border-color:#8c959c;color:#fff;font-size:medium;font-size:initial}.btn-secondary-sm:hover{display:inline-block;border-style:solid;border-radius:5px;padding:15px 25px;text-align:center;text-decoration:none;cursor:pointer;margin:5px;transition:.3s;background-color:#727c83;border-color:#727c83;color:#fff;font-size:medium;font-size:initial}.switch{position:relative;display:inline-block;width:60px;height:34px}.switch input{opacity:0;width:0;height:0}.slider{position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;background-color:#5a6268;-webkit-transition:.4s;transition:.4s}.slider:before{position:absolute;content:"";height:26px;width:26px;left:4px;bottom:4px;background-color:#fff;-webkit-transition:.4s;transition:.4s}input:checked+.slider{background-color:#007bff}input:focus+.slider{box-shadow:0 0 1px #007bff}input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:translateX(26px);transform:translateX(26px)}.slider.round{border-radius:34px}.slider.round:before{border-radius:50%}.cookies-description{float:left;width:80%}.success{color:#218838}#cookie-message{text-align:left;margin:0 15px;font-size:10px}#cookie-message h1,#cookie-message p{color:#fff}#cookie-message h1{font-size:small}#cookie-message p{margin-top:10px;margin-right:0px;margin-bottom:5px;margin-left:0px;font-size:larger}#cookie-message a{color:#fff}#cookie-modal-window{position:fixed;background-color:rgba(200,200,200,.75);top:0;right:0;bottom:0;left:0;-webkit-transition:all .3s;-moz-transition:all .3s;transition:all .3s;text-align:center}#cookie-modal-window h1{font-size:150%;margin:0 0 15px}#modal-content{text-align:initial;margin:10% auto;padding:40px;background:#fff;display:inline-block;max-width:550px;font-size:16px}#modal-content p{line-height:1.5em;margin:16px 0}#cookie-modal-close{width:100%;margin:0}.modal-body table{width:100%;border-collapse:collapse}.modal-body table td{padding-left:15px}.necessary-cookies-row{background-color:#dee1e3}.disabled{display:none;z-index:-999}.announcement{background:#2d2d2d;text-align:center;padding:10px 5px}.announcement p{color:#aaa}.announcement a{color:#aaa}.container-silobox{font-size:12px;text-align:center}.container-silobox__text{color:#919da6}.container-silobox__link{font-weight:normal;text-decoration:underline;color:#919da6}
+;(function($, Lampa) {
+    var Modal = /** @class */function(){
+	var modalID = 0;
 
-    </style><script type="text/javascript">
-        var dto = {"uiOptimize":true,"singleDomainName":"rootu.top","domainName":"rootu.top","domainPrice":0,"domainCurrency":"","adultFlag":false,"pu":"//plugin.rootu.top","dnsh":true,"dpsh":false,"toSell":false,"cdnHost":"img.sedoparking.com","adblockkey":" data-adblockkey=MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBANnylWw2vLY4hUn9w06zQKbhKBfvjFUCsdFlb6TdQhxb9RXWXuI4t31c+o8fYOv/s8q1LGPga3DE1L/tHU4LENMCAwEAAQ==_nBoE92RuY1ZDeXn+eS1kj6PlNVRWShprXLh9egUFMvZBU8uy+rO2dacKhugOOb+ZpS7mkhzlL8MA+d84gPsYrA==","tid":3206,"buybox":false,"buyboxTopic":true,"disclaimer":true,"imprint":false,"searchbox":false,"noFollow":false,"slsh":false,"ppsh":true,"dnhlsh":true,"toSellUrl":"","toSellText":"","searchboxPath":"//plugin.rootu.top/parking.php","searchParams":{"ses":"ogc9bd8dqk90XYvAo6s0QMjdcw23mNoWIJWZd-nqP37dWc1N61tQSha6mr8JxN7z3ogYu08DM6LCjV0PK-7zPPNNPIT2sw0xwFyZcNO-ybw2C1WFraQIFufLEgOui9I3aWaKgtTAV2TZsRjBvc48u0Rpv6uVAn-f8bJyD4FapwJSSkDMZ8DwcC5jj0msjxnTohlgGlYopFk8Cyp497SmHo0cveeXaPgKLXgBhkborsujJfFuD7fnM3oUZr5uO8WG4RGiuzhvnIUS9fI-4n6RdHYaJg9UGoiZ3M9uLIk2JAk7HgbNqwK-0h4FRUawLRPTej-32ex5_zHVA7L2iShdRfZMq4xbRHm905k9DA_"},"imprintUrl":false,"contactUsUrl":false,"contentType":5,"t":"content","pus":"ses=ogchYhQsS1BD-BGJRiK7934LuJy8IAK9sdxNOLk1xHqLtz7flxNYpeByK45SnlCoBwdVqcXiQ30Ggursz-LgA_wnt3SgN9l4kxisLOAJgerXtr6Ed_Zg-10ry3InB3zyBd8EtIVD4rcrHAlpdrYIfZMLOttoLfuH7jW1FKmq5K5LVBGOyu5M192E6LuJjH5VZuPWEaYqna_DznZTMbqitX3jWgzIZm3stjcU0RvZJLuSe-J-g3XfTScqCIrXTyINf9zmckPYiBVT7E4AGK8-4aBUqJPA1vYpQYnjV43OyEoNKxDo0Run6QCaHh_tOZ6Takw19mIhq0","postActionParameter":{"feedback":"/search/fb.php?ses=","token":{"pageLoaded":"ce6997905ad5c95001768484464a48b8467a25f4a2"}},"gFeedSES":{"default":"ogcTRJvubc5dCPS5N_q4piqV0C1e0133hPQfg5sl6aCIDWps82efPl0kHI7tlnBViu8Lmm9oWJG8X2WqGYi5UXkDCzkzpo-x10FnnwiS-mvILr9EXae9aFZMHslR6UwXtucoGoXMOVwoXPq0as03uSmqq8AVrE76JMWvob2-xn5PqserPSP6elM6QFZ-26NZwZaxPrF-l0lXBXZCFC6bLQ2orP4nyyGHexUqIi6ARc-xw4azyxRfmROP55vintwHyv588beNYqWzskPKLKYH33GsPBzViK9hnL1lv5dEUHkLlv4WTzk2rakAVnv75oiylryTatpytJnksFzD62xMh9iRj9OI8ATvTyPOQq-zhJ5Y8ryO4FQHNlIPsO7OCBi6KhUusTw21t25mGyZ6GA15BdM3gDyKBERdVDOcqjKWKRhgl2r5jaLdzukwRMynwmhWDPsfBLkv50O7AzMKm2MN7BpUpv1uD5iM3Ua6zOTx-LSCMLBF83fVqZ1HjlOv31spwTIM3kUsuwGUl795pYkc2AvANHcBuuLoZpX_85ZGs44TdJjQwaHMeiTnSq3gRI5-OYA2LGVcxkEECUJ4OJO-GX-pvGC49Mmx0KrVyUJ8XGo_bmyG7MXCLS","alternate":""},"visitorViewIdJsAds":"ogcH2qvehqrfHBPRo8tYxs6DKI9rajdqEPI7USGad6GjOtDLeuSllBe4SruT7DVGvWlHkUxbtv6_zGbKZtUXeS-q3_FNoENYm8LjgL7oLX8iasgL0Dv8_vFC-0CdkX9AnoNQSkPJvXLwqhJrcZdISQ7hU248kQrqZdBOGlUxOqlYZXhO-R4yJ4JxBvmXC9g_N-p9sxdLhJu","jsParameter":{"request":{"pubId":"dp-sedo80_3ph","domainRegistrant":"as-drid-2383353299994854","kw":"","adtest":"off","adsafe":"low","uiOptimize":"true","hl":"en","noAds":5,"ivt":true,"channel":"exp-0050,auxa-control-1,8810114"}},"ads":[],"adv":1,"advt":1,"rls":[],"numberRelatedLinks":3,"waUrl":"/search/portal.php?l=ogcTRJvubc5dCPS5N_q4piqV0C1e0133hPQfg5sl6aCIDWps82efPl0kHI7tlnBViu8Lmm9oWJG8X2WqGYi5UXkDCzkzpo-x10FnnwiS-mvILr9EXae9aFZMHslR6UwXtucoGoXMOVwoXPq0as03uSmqq8AVrE76JMWvob2-xn5PqserPSP6elM6QFZ-26NZwZaxPrF-l0lXBXZCFC6bLQ2orP4nyyGHexUqIi6ARc-xw4azyxRfmROP55vintwHyv588beNYqWzskPKLKYH33GsPBzViK9hnL1lv5dEUHkLlv4WTzk2rakAVnv75oiylryTatpytJnksFzD62xMh9iRj9OI8ATvTyPOQq-zhJ5Y8ryO4FQHNlIPsO7OCBi6KhUusTw21t25mGyZ6GA15BdM3gDyKBERdVDOcqjKWKRhgl2r5jaLdzukwRMynwmhWDPsfBLkv50O7AzMKm2MN7BpUpv1uD5iM3Ua6zOTx-LSCMLBF83fVqZ1HjlOv31spwTIM3kUsuwGUl795pYkc2AvANHcBuuLoZpX_85ZGs44TdJjQwaHMeiTnSq3gRI5-OYA2LGVcxkEECUJ4OJO-GX-pvGC49Mmx0KrVyUJ8XGo_bmyG7MXCLS","tsc":true,"tscQs":"ses=ogcY1VJNr3iaukb1FaStaDd2nWa9-HlytIKhG9SLlXWwlOTsJ23aa88X3Hy7K5_jhPIC1udNrsWWpamlMV_oi5Wal1Fzj2AGZHuki6lXS7OvH9E4UJIiVHlp_w2qvYiOg1ljL1M3DdEkd0-LEzO8vfAB6fidhYs25xreQv_ORVvg1nkWgwRxNAY3H41Syq8w8qrphETNonYiCpsfwApFbQXsfsTaPOnyWcUiax3XuReJtK_cKcLDohf4qW4b9Y-ULKwEDg_TFkkfkkRz-DqrVUHE9a6ZdLuxIZN7yBy6HVNmAW1R6-66dWpZJXEW96vercKaAwWtY-rOCd8bdoosrx4WppHyrlFroNzq3QvaOqb158x6yK2y17gjUqNxjRCkQ&cv=2","lang":"en","maid":59,"sedoParkingUrl":"https://www.sedo.com/services/parking.php3","dbg":false,"signedLink":"l","visitorViewId":"v","registrar_params":[],"clickTrack":[],"cookieMessage":false,"cookieMessageInteractive":false,"executeTrackingPixels":false,"cmpBanner":false,"cmpBannerTheme":"65b28f71acf237e2130df1fa","eventIdLp":"8b1289fc-40e7-462f-a4d4-7cbc1a694e5d","eventIdRp":"22a35ae6-1cf3-4831-b66d-0365b6e27d46","enableCheqIntegration":false,"bannerTypes":[],"clickControlHost":"plugin.rootu.top"};
-    </script></head><body
-        class="
-                            onet
-        
-        twoclick
-        content"
-><div id="container-header"><div id="container-domain"><div class="domain" id="dn-default"><h1>rootu.top</h1></div></div></div><div id="container-content"><div id="container-relatedlinks"><div class="content-relatedlinks" id="rb-default"></div></div></div><div id="container-searchbox"></div><div class="name-silo-container"><div class="name-silo-banner"><div class="left-container"></div><div class="right-container">This domain is registered at NameSilo. If you are the owner, start administering it at <a href="https://www.namesilo.com">NameSilo.com</a>. If this is not your domain, <a href="https://www.namesilo.com/domain/search-domains?query=rootu.top">find similar names</a> that work for you.</div></div></div><div id="container-buybox"></div><div class="container-silobox"><p class="container-silobox__text">
-    Get a new <a class="container-silobox__link" href="https://www.namesilo.com">domain</a>
-    registered at NameSilo.com. Find out who owns any domain name with the <a
-            class="container-silobox__link" href="https://www.namesilo.com/whois">WHOIS</a>
-    tool.
-</p></div><div id="container-footer"><div id="container-disclaimer"><div class="content-disclaimer content-disclaimer-1tier"><span class="text"><p>
-            This webpage was generated by the domain owner using <a href="https://www.sedo.com/services/parking.php3">Sedo Domain Parking</a>. Disclaimer: Sedo maintains no relationship with third party advertisers. Reference to any specific service or trade mark is not controlled by Sedo nor does it constitute or imply its association, endorsement or recommendation.
-        </p></span></div></div><div id="container-imprint"></div><div id="container-privacyPolicy"><div class="content-privacy-policy"><div id="privacy-policy-link" class="text-center"><a
-                href="#"
-                onclick="window.open(
-                        '//sedoparking.com/privacy-policy/en/index.html',
-                        'privacy-policy','width=600,height=400');
-                        return false;">
-            Privacy Policy
-        </a></div></div></div><div id="container-contact-us"></div></div><div id="container-cookie-message"></div><!-- CAF --><script type="text/javascript" src="//www.google.com/adsense/domains/caf.js?abp=1&amp;YEr3CiF6AuQqLspNobyal3ji0SyqxBLn=true"></script><script type="text/javascript">
-                var cafRL={container:"rb-default",type:"relatedsearch",number:3,styleId:7097983261};if("adLoaded"in dto.postActionParameter.token&&dto.postActionParameter.token.adLoaded){cafRL.adLoadedCallback=callbackAdLoaded}var cafEl=[{meta:{layoutTypes:[1]},caf:{container:"ab-default",type:"ads",lines:3,linkTarget:"_blank",styleId:7097983261}},{meta:{layoutTypes:[5]},caf:cafRL},{meta:{layoutTypes:[1,2,5]},caf:{container:"sb-default",type:"searchbox",hideSearchInputBorder:true,hideSearchButtonBorder:true,colorSearchButton:"#363636",colorSearchButtonText:"#C9EC6A",fontSizeSearchInput:16,fontSizeSearchButton:16}}];
-    </script><script type="text/javascript">
-        var onclick_param_l=dto.signedLink;var onclick_value_l=dto.gFeedSES.default;var onclick_value_al=dto.gFeedSES.alternate;var onclick_param_v=dto.visitorViewId;var onclick_value_v=dto.visitorViewIdJsAds;var fb="";var fb_token="";if(dto.postActionParameter){fb=dto.pu+dto.postActionParameter.feedback;if(dto.postActionParameter.token.pageLoaded){fb_token=dto.postActionParameter.token.pageLoaded}}var pu=dto.pu;var ds=dto.adultFlag;var pus=dto.pus;var tlt=dto.contentType;var dsb=dto.searchbox;var pdto={caf:{colorBackground:"transparent"}};if(dto.jsParameter){for(let key in dto.jsParameter.request){pdto.caf[key]=dto.jsParameter.request[key]}}(function(){let pageOptions=pdto.caf;let noAds=pdto.caf.noAds;delete pdto.caf.noAds;pageOptions.resultsPageBaseUrl=pu+"/caf/?"+pus;let clickControlParams={};clickControlParams[onclick_param_l]=onclick_value_l;clickControlParams[onclick_param_v]=onclick_value_v;function setRlsAmount(){cafEl.forEach(function(part,index){if(cafEl[index].meta.layoutTypes.indexOf(dto.contentType)!==-1&&cafEl[index].caf.type==="relatedsearch"){cafEl[index].caf.number=dto.numberRelatedLinks}})}function addClickTrackUrl(cafObject){let params=Object.keys(clickControlParams).map(function(key){return encodeURIComponent(key)+"="+encodeURIComponent(clickControlParams[key])}).join("&");let parkingClickTrack="//"+dto.clickControlHost+"/search/cc.php?"+params;if(dto.clickTrack.length>0){dto.clickTrack.forEach(function(part,index){this[index]=encodeURI(this[index])},dto.clickTrack);cafObject.clicktrackUrl=[parkingClickTrack].concat(dto.clickTrack)}else{cafObject.clicktrackUrl=parkingClickTrack}}pageOptions.pageLoadedCallback=function(requestAccepted,status){let fb_add_params="";function isAdultStatusCallbackRequired(){if(!("adult"in status)){return false}if(ds===false&&status.adult===true){return true}if(ds===true&&status.adult===false){return true}return false}function isErrorCodeCallbackRequired(){if(!("error_code"in status)){return false}if(isAdultStatusCallbackRequired()&&26===status.error_code){return false}return true}if(isAdultStatusCallbackRequired()){fb_add_params+="&as="+status.adult+"&gc="+status.client}if(isErrorCodeCallbackRequired()){fb_add_params+="&ec="+parseInt(status.error_code)}if(fb_add_params.length===0||fb_token.length===0){return}let request=new XMLHttpRequest;request.open("GET",fb+fb_token+fb_add_params,true);request.send()};function collectCafObjects(){let cafObjects=[pageOptions];cafEl.forEach(function(part,index){if(cafEl[index].meta.layoutTypes.indexOf(tlt)===-1){return}if(cafEl[index].caf.type==="ads"){addClickTrackUrl(cafEl[index].caf);cafEl[index].caf.number=noAds}pdto.caf.uiOptimize=dto.uiOptimize;if(cafEl[index].caf.type==="relatedsearch"&&dto.rls.length>0){return}if(cafEl[index].caf.type==="searchbox"&&dsb===false){return}cafObjects.push(cafEl[index].caf)});return cafObjects}function appendCafRls(){if(dto.rls.length<=0){return}let start=0;let cafRlObjects=[pdto.caf];cafEl.forEach(function(part,index){if(cafEl[index].meta.layoutTypes.indexOf(dto.contentType)!==-1&&cafEl[index].caf.type==="relatedsearch"){let stop=start+cafEl[index].caf.number;let terms=[];for(var i=start;i<stop;i++){if(i>dto.rls.length-1){break}terms[i]=dto.rls[i].term;start=i+1}cafEl[index].caf.terms=terms.join(",");cafEl[index].caf.optimizeTerms=false;cafRlObjects.push(cafEl[index].caf)}});createCaf.apply(this,cafRlObjects)}if(typeof google!=="undefined"){window.createCaf=function(){function F(args){return google.ads.domains.Caf.apply(this,args)}F.prototype=google.ads.domains.Caf.prototype;return function(){return new F(arguments)}}();setRlsAmount();if(dto.advt===1&&dto.contentType!==2&&dto.contentType!==3){appendCafRls()}let cafObjects=collectCafObjects();if(cafObjects.length>1){createCaf.apply(this,cafObjects)}}})();function tscCall(dto){const request=new XMLHttpRequest;request.open("GET",dto.pu+"/search/tsc.php?"+dto.tscQs);request.send()}function isFacebookCookieSet(){const cookieArray=decodeURIComponent(document.cookie).split(";");for(let i=0;i<cookieArray.length;i++){let c=cookieArray[i].trim();if(c.indexOf("_fbp=")===0){return true}}return false}if(dto.tsc){if(dto.fbpCheck==undefined){tscCall(dto)}else{let x=0;const intervalID=setInterval(function(){const isSet=isFacebookCookieSet();if(isSet||x===9){tscCall(dto);clearInterval(intervalID)}x++},100)}}var $parkModalButton=document.getElementById("cookie-modal-open");var $parkModalCloseButton=document.getElementById("cookie-modal-close");var $parkModal=document.getElementById("cookie-modal-window");var $parkCookieMessage=document.getElementById("cookie-message");var $parkThirdPartyCookieCheckbox=document.getElementById("third-party-cookie-checkbox");var $parkAcceptAllCookiesButton=document.getElementById("accept-all-cookies-btn");var executeTrackingPixel=function(trigger){if(trigger===true&&typeof pxTracking==="function"){pxTracking()}};var getCookieExpirationTime=function(){var d=new Date;d.setTime(d.getTime()+7*24*60*60*1e3);return d.toUTCString()};var saveParkingCookie=function(statisticsCookie){var cookieConsent={necessary:true,statistics:statisticsCookie,version:1,timestamp:(new Date).getTime()};document.cookie="CookieConsent="+JSON.stringify(cookieConsent)+";expires="+getCookieExpirationTime()};if($parkModalButton!=null){$parkModalButton.onclick=function(e){$parkModal.classList.remove("disabled")}}if($parkModalCloseButton!=null){$parkModalCloseButton.onclick=function(e){$parkModal.classList.add("disabled");$parkCookieMessage.classList.add("disabled");saveParkingCookie($parkThirdPartyCookieCheckbox.checked);executeTrackingPixel($parkThirdPartyCookieCheckbox.checked)}}if($parkAcceptAllCookiesButton!=null){$parkAcceptAllCookiesButton.onclick=function(){$parkCookieMessage.classList.add("disabled");saveParkingCookie(true);executeTrackingPixel(true)}}if(dto.executeTrackingPixels===true){executeTrackingPixel(true)}
-    </script></body></html>
+	function Modal(params) {
+	    this.id = ++modalID;
+	    this.active = params;
+	    this.html = Lampa.Template.get('modal', {title: params.title});
+	    this.scroll = new Lampa.Scroll({over: true, mask: params.mask});
+	    this.last = false;
+	}
+
+	Modal.prototype.open = function(){
+	    var _this = this;
+	    this.html.on('click',function(e){
+		if(!$(e.target).closest($('.modal__content', _this.html)).length && Lampa.DeviceInput.canClick(e.originalEvent)) window.history.back();
+	    })
+
+	    this.title(this.active.title);
+
+	    this.html.toggleClass('modal--medium', this.active.size === 'medium');
+	    this.html.toggleClass('modal--large', this.active.size === 'large');
+	    this.html.toggleClass('modal--full', this.active.size === 'full');
+	    this.html.toggleClass('modal--overlay', !!this.active.overlay);
+	    this.html.toggleClass('modal--align-center', this.active.align === 'center');
+
+	    if(this.active.zIndex) this.html.css('z-index', this.active.zIndex);
+
+
+	    this.scroll.render().toggleClass('layer--height', this.active.size === 'full')
+
+	    this.html.find('.modal__body').append(this.scroll.render())
+
+	    this.bind(this.active.html);
+
+	    this.scroll.onWheel = function(step){
+		this.roll(step > 0 ? 'down' : 'up');
+	    }
+	    this.scroll.append(this.active.html);
+	    if(this.active.buttons) this.buttons();
+	    $('body').append(this.html);
+	    this.max();
+	    this.toggle(this.active.select);
+	}
+
+	Modal.prototype.max = function(){
+	    this.scroll.render().find('.scroll__content').css('max-height',  Math.round(window.innerHeight - this.scroll.render().offset().top - (window.innerHeight * 0.1)) + 'px');
+	}
+
+	Modal.prototype.buttons = function(){
+	    var footer = $('<div class="modal__footer"></div>');
+	    this.active.buttons.forEach(function(button){
+		var btn = $('<div class="modal__button selector" style="width: 50%;text-align: center"></div>');
+		btn.text(button.name);
+		btn.on('click hover:enter',function(){
+		    button.onSelect();
+		});
+		footer.append(btn);
+	    });
+	    this.scroll.append(footer);
+	}
+
+	Modal.prototype.bind = function(where){
+	    where.find('.selector')
+		.on('hover:focus',function(e){
+		    this.last = e.target;
+		    this.scroll.update($(e.target));
+		})
+		.on('hover:enter',function(e){
+		    this.last = e.target;
+		    if(this.active.onSelect) this.active.onSelect($(e.target));
+		})
+	    ;
+	}
+
+	Modal.prototype.jump = function(tofoward){
+	    var select = this.scroll.render().find('.selector.focus');
+
+	    if(tofoward) select = select.nextAll().filter('.selector');
+	    else		 select = select.prevAll().filter('.selector');
+
+	    select = select.slice(0,10);
+	    select = select.last();
+
+	    if(select.length){
+		Lampa.Controller.collectionFocus(this.select[0],this.scroll.render());
+	    }
+	}
+
+	Modal.prototype.roll = function(direction){
+	    var select = this.scroll.render().find('.selector');
+
+	    if(select.length){
+		Navigator.move(direction);
+	    }
+	    else{
+		var step = Math.round(window.innerHeight * 0.15);
+
+		this.scroll.wheel(direction === 'down' ? step : -step);
+	    }
+	}
+
+	Modal.prototype.toggle = function(need_select){
+	    var _this = this;
+	    Lampa.Controller.add('Modal-' + this.id, {
+		invisible: true,
+		toggle: function(){
+		    Lampa.Controller.collectionSet(_this.scroll.render());
+		    Lampa.Controller.collectionFocus(need_select || _this.last, _this.scroll.render());
+
+		    Lampa.Layer.visible(_this.scroll.render(true));
+		},
+		up: function(){
+		    _this.roll('up');
+		},
+		down: function(){
+		    _this.roll('down');
+		},
+		right: function(){
+		    if(Navigator.canmove('right')) Navigator.move('right');
+		    else _this.jump(true);
+		},
+		left: function(){
+		    if(Navigator.canmove('left')) Navigator.move('left');
+		    else _this.jump(false);
+		},
+		back: function(){
+		    if(_this.active.onBack) _this.active.onBack();
+		}
+	    });
+	    Lampa.Controller.toggle('Modal-' + this.id);
+	}
+
+	Modal.prototype.update = function(new_html) {
+	    this.last = false;
+	    this.scroll.clear();
+	    this.scroll.append(new_html);
+	    this.bind(new_html);
+	    this.max();
+	    this.toggle(this.active.select);
+	}
+
+	Modal.prototype.title = function(title){
+	    this.html.find('.modal__title').text(title);
+	    this.html.toggleClass('modal--empty-title',!title);
+	}
+
+	Modal.prototype.destroy = function(){
+	    this.last = false;
+	    this.scroll.destroy();
+	    this.html.remove();
+	}
+
+	Modal.prototype.close = function(){
+	    this.destroy();
+	}
+
+	Modal.prototype.render = function(){
+	    return this.html;
+	}
+	return Modal;
+    }();
+
+    Lampa.Lang.add({
+	ts_preload_preload: {
+	    en: 'Preload',
+	    ru: 'Предзагрузка',
+	    be: 'Перадзагрузка',
+	    uk: 'Передзавантаження',
+	    pt: 'Pré-carregar',
+	    zh: '预加载'
+	},
+	ts_preload_speed: {
+	    en: 'Speed',
+	    ru: 'Скорость загрузки',
+	    be: 'Хуткасць загрузкі',
+	    uk: 'Швидкість',
+	    pt: 'Velocidade',
+	    zh: '速度'
+	},
+	ts_preload_seeds: {
+	    en: 'seeds',
+	    ru: 'раздают',
+	    be: 'раздаюць',
+	    uk: 'роздають',
+	    pt: 'entregam',
+	    zh: '种子数'
+	},
+	ts_preload_peers: {
+	    en: 'Peers',
+	    ru: 'Подключились',
+	    be: 'Падключыліся',
+	    uk: 'Підключилися',
+	    pt: 'Conectado',
+	    zh: '连接数'
+	}
+    });
+    function tsIP(){
+	// Для поддержки верссии 1.6.5
+	return (!!Lampa.Torserver && !!Lampa.Torserver.ip)
+	    ? Lampa.Torserver.ip()
+	    : Lampa.Storage.get(Lampa.Storage.field('torrserver_use_link') === 'two' ? 'torrserver_url_two' : 'torrserver_url');
+    }
+    if (!!Lampa.Torserver && !!Lampa.Torserver.stream && !!Lampa.Torserver.url) {
+	// Для отключения ламповой предзагрузки, формируем ссылку без &preload
+	Lampa.Torserver.stream = function(path, hash, id) {
+	    return Lampa.Torserver.url() + '/stream/'+ encodeURIComponent(path.split('\\').pop().split('/').pop()) +'?link=' + hash + '&index=' + id + '&play'
+	}
+    }
+    var lampaPlay = Lampa.Player.play;
+    var lampaCallback = Lampa.Player.callback;
+    var lampaPlaylist = Lampa.Player.playlist;
+    var lampaStat = Lampa.Player.stat;
+    var player = null;
+    var Player = /** @class */function(){
+	function Player(data) {
+	    data.url = parseUrl(data.url).clearUrl + '&play';
+	    this.playerData = data;
+	    this.playList = null;
+	    this.statUrl = null;
+	    this.callback = null;
+	}
+	Player.prototype.setPlayList = function(playlist){
+	    playlist.map(function(data){data.url = parseUrl(data.url).clearUrl + '&play'});
+	    this.playList = playlist;
+	};
+	Player.prototype.setStatUrl = function(url){this.statUrl = url};
+	Player.prototype.setCallback = function(callback){this.callback = callback};
+	Player.prototype.play = function(){
+	    lampaPlay(this.playerData);
+	    this.playList && lampaPlaylist(this.playList);
+	    this.callback && lampaCallback(this.callback);
+	    this.statUrl && lampaStat(this.statUrl);
+	    player = null;
+	}
+	return Player;
+    }();
+
+    Lampa.Player.playlist = function(playlist) {
+	if (player) player.setPlayList(playlist);
+	else lampaPlaylist(playlist);
+    };
+    Lampa.Player.stat = function(url) {
+	if (player) player.setStatUrl(url);
+	else lampaStat(url);
+    };
+    Lampa.Player.callback = function(callback) {
+	if (player) player.setCallback(callback);
+	else lampaCallback(callback);
+    };
+    Lampa.Player.play = function(data) {
+	if (Lampa.Storage.field('torrserver_preload')
+	    && data.url
+	    && tsIP()
+	    && data.url.indexOf(tsIP()) > -1
+	    && ( /* Установлена опция плеера "Начать с начала" или таймкод меньше минуты */
+		Lampa.Storage.field('player_timecode') === 'again'
+		|| !data.timeline || !data.timeline.time
+		|| parseFloat('0' + data.timeline.time) < 60
+		|| true // nikk говорит включать, если что есть кнопка запуска плеера (возможно нужна опция)
+	    )
+	) preload(data);
+	else lampaPlay(data);
+    };
+    function params(obj) {
+	var prop, pairs = [];
+	for (prop in obj) pairs.push(prop + (obj[prop] ? '=' + obj[prop] : ''));
+	return pairs.join('&');
+    }
+    function parseUrl(url) {
+	var m, base_url, stream, args, arg = {};
+	if (!!(m = url.match(/^(https?:\/\/.+?)(\/stream\/[^?]+)\?(.+)$/i))) {
+	    base_url = m[1];
+	    stream = m[2];
+	    args = m[3];
+	    args.split('&').map(function(v){var p=v.split('=');arg[p[0]] = p[1] || null;});
+	    delete(arg['play']);delete(arg['preload']);delete(arg['stat']);
+	}
+	args = params(arg);
+	return {
+	    clearUrl: base_url + stream + '?' + args,
+	    base_url: base_url,
+	    stream: stream,
+	    args: '?' + args,
+	    arg: arg
+	}
+    }
+
+    function preload(data) {
+	var u = parseUrl(data.url);
+	if (!u.arg.link) return lampaPlay(data);
+	player = new Player(data);
+	var controller = Lampa.Controller.enabled().name;
+	var network = new Lampa.Reguest();
+	var modalHtml = $('<div>' + '<div class="broadcast__text" style="text-align: left"><span class="js-peer">&nbsp;</span><br><span class="js-buff">&nbsp;</span><br><span class="js-speed">&nbsp;</span></div>' + '<div class="broadcast__scan"><div></div></div>' + '</div>');
+	var peer = modalHtml.find('.js-peer');
+	var buff = modalHtml.find('.js-buff');
+	var speed = modalHtml.find('.js-speed');
+	var modal = new Modal({
+	    title: Lampa.Lang.translate('loading'),
+	    html: modalHtml,
+	    onBack: cancel,
+	    buttons: [
+		{
+		    name: Lampa.Lang.translate('cancel'),
+		    onSelect: cancel
+		},
+		{
+		    name: Lampa.Lang.translate('player_lauch'),
+		    onSelect: play
+		}
+	    ]
+	});
+	modal.open();
+	function destroy() {
+	    network.clear();
+	    modal.close();
+	    Lampa.Controller.toggle(controller);
+	}
+	function cancel(){
+	    if (player) {
+		destroy();
+		player.callback && player.callback();
+		player = null;
+	    }
+	}
+	function play(){
+	    if (player) {
+		destroy();
+		player.play();
+	    }
+	}
+	network.timeout(1800 * 1000); /* 30 минут на предзагрузку (для особо упоротых :D) */
+	network.silent(u.clearUrl + '&preload', play, play);
+	network.timeout(2000);
+	var stat = function(data) {
+	    if (!player) return;
+	    if (data && data.Torrent) {
+		var t = data.Torrent;
+		var p = Math.floor((t.preloaded_bytes || 0) * 100 / (t.preload_size || 1));
+		peer.html(Lampa.Lang.translate('ts_preload_peers') + ': ' + (t.active_peers || 0) + ' / ' + (t.pending_peers || 0) + ' (' + (t.total_peers || 0) + ') &bull; ' + (t.connected_seeders || 0) + ' - ' + Lampa.Lang.translate('ts_preload_seeds'));
+		buff.html(Lampa.Lang.translate('ts_preload_preload') + ': ' + Lampa.Utils.bytesToSize(t.preloaded_bytes || 0) + ' / ' + Lampa.Utils.bytesToSize(t.preload_size || 0) + ' (' + p + '%)');
+		speed.text(Lampa.Lang.translate('ts_preload_speed') + ': ' + Lampa.Utils.bytesToSize((t.download_speed || 0) * 8, true));
+	    }
+	    // network.silent(u.clearUrl + '&stat', function(t){stat({Torrent: t})}, stat);
+	    network.silent(u.base_url + '/cache', stat, stat, JSON.stringify({action: 'get', hash: u.arg.link}));
+	};
+	stat({Torrent: {active_peers:0,pending_peers:0,total_peers:0,connected_seeders:0,preloaded_bytes:0,preload_size:0,download_speed:0}});
+    }
+})(jQuery, Lampa);
