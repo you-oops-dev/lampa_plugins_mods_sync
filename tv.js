@@ -914,6 +914,7 @@ function pluginPage(object) {
 					var video = {
 						title: channel.Title,
 						url: prepareUrl(channel.Url),
+						thumbnail: channel['tvg-logo'],
 						plugin: plugin.component,
 						iptv: true,
 						tv: true
@@ -928,12 +929,14 @@ function pluginPage(object) {
 						playlistForExtrnalPlayer[j] = {
 							title: elem.Title,
 							url: videoUrl,
+							thumbnail: elem['tvg-logo'],
 							iptv: true,
 							tv: true
 						};
 						playlist.push({
 							title: ++i + '. ' + elem.Title,
 							url: videoUrl,
+							thumbnail: elem['tvg-logo'],
 							plugin: plugin.component,
 							iptv: true,
 							tv: true
