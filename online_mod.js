@@ -1,4 +1,4 @@
-//28.01.2026 - Fix
+//02.02.2026 - Fix
 
 (function () {
     'use strict';
@@ -177,14 +177,13 @@
       var ip = getMyIp() || '';
       var param_ip = Lampa.Storage.field('online_mod_proxy_find_ip') === true ? 'ip' + ip + '/' : '';
       var proxy1 = new Date().getHours() % 2 ? 'https://cors.nb557.workers.dev/' : 'https://cors.fx666.workers.dev/';
-      var proxy2 = (window.location.protocol === 'https:' ? 'https://' : 'http://') + 'iqslgbok.deploy.cx/';
+      var proxy2_base = 'https://apn-latest.onrender.com/';
+      var proxy2 = proxy2_base + (param_ip ? '' : 'ip/');
       var proxy3 = 'https://cors557.deno.dev/';
-      var proxy_apn = '';
       var proxy_secret = '';
       var proxy_secret_ip = '';
 
       if (isDebug()) {
-        proxy_apn = (window.location.protocol === 'https:' ? 'https://' : 'http://') + decodeSecret([59, 37, 28, 26, 10, 86, 38, 18, 92, 60, 41, 59, 9, 25, 27, 20, 36, 13, 93]);
         proxy_secret = decodeSecret([36, 63, 17, 6, 17, 0, 104, 90, 19, 40, 34, 102, 8, 20, 87, 15, 113, 91, 25, 55, 53, 46, 7, 88, 3, 74, 55, 90]);
         proxy_secret_ip = proxy_secret + (param_ip || 'ip/');
       }
@@ -195,29 +194,29 @@
       var user_proxy2 = (proxy_other_url || proxy2) + param_ip;
       var user_proxy3 = (proxy_other_url || proxy3) + param_ip;
       if (name === 'lumex_api') return user_proxy2;
-      if (name === 'filmix_site') return proxy_secret_ip || user_proxy1;
-      if (name === 'filmix_abuse') return window.location.protocol === 'https:' ? 'https://cors.apn.monster/' : 'http://cors.cfhttp.top/';
-      if (name === 'zetflix') return proxy_apn;
-      if (name === 'allohacdn') return proxy_other ? proxy_secret : proxy_apn;
+      if (name === 'filmix_site') return proxy_other && proxy_secret_ip || user_proxy1;
+      if (name === 'filmix_abuse') return '';
+      if (name === 'zetflix') return '';
+      if (name === 'allohacdn') return proxy_secret;
       if (name === 'cookie') return user_proxy1;
       if (name === 'cookie2') return user_proxy2;
       if (name === 'cookie3') return user_proxy3;
-      if (name === 'ip') return proxy2;
+      if (name === 'ip') return proxy2_base;
 
       if (Lampa.Storage.field('online_mod_proxy_' + name) === true) {
         if (name === 'iframe') return user_proxy2;
         if (name === 'lumex') return proxy_secret;
         if (name === 'rezka') return user_proxy2;
         if (name === 'rezka2') return user_proxy2;
-        if (name === 'kinobase') return proxy_apn;
-        if (name === 'collaps') return proxy_other ? proxy_secret : proxy_apn;
-        if (name === 'cdnmovies') return proxy_other ? proxy_secret : proxy_apn;
-        if (name === 'filmix') return proxy_secret_ip || user_proxy1;
+        if (name === 'kinobase') return proxy_secret;
+        if (name === 'collaps') return proxy_secret;
+        if (name === 'cdnmovies') return proxy_secret;
+        if (name === 'filmix') return proxy_other && proxy_secret_ip || user_proxy1;
         if (name === 'videodb') return user_proxy2;
         if (name === 'fancdn') return user_proxy3;
         if (name === 'fancdn2') return user_proxy2;
-        if (name === 'fanserials') return user_proxy2;
-        if (name === 'fanserials_cdn') return proxy_other ? proxy_secret : proxy_apn;
+        if (name === 'fanserials') return user_proxy1;
+        if (name === 'fanserials_cdn') return proxy_secret;
         if (name === 'videoseed') return user_proxy1;
         if (name === 'vibix') return user_proxy2;
         if (name === 'redheadsound') return user_proxy2;
@@ -7267,6 +7266,7 @@
       var prox = component.proxy('vibix');
       var user_agent = Utils.baseUserAgent();
       var auth = Utils.decodeSecret([44, 23, 81, 32, 63, 32, 116, 90, 0, 115, 89, 14, 116, 10, 30, 49, 1, 61, 3, 115, 57, 64, 8, 57, 45, 21, 28, 88, 113, 14, 94, 29, 118, 56, 25, 102, 5, 15, 90, 29, 33, 68, 123, 6, 40, 35, 33, 91, 127, 62, 28, 65, 9, 49, 104, 55, 97, 14, 8, 46], atob('VmliaXhBdXRo'));
+      var key = Utils.decodeSecret([60, 11, 99, 54, 44, 49, 45, 25, 5, 34, 58, 39, 72, 60, 99, 101, 34, 2, 4, 3, 25, 29, 94, 59, 45, 53, 44, 13, 115, 50, 0, 51], atob('VmliaXhBdXRo'));
       var headers = Lampa.Platform.is('android') ? {
         'User-Agent': user_agent,
         'Authorization': auth
@@ -7391,14 +7391,54 @@
         return null;
       }
 
-      function encrypt(str) {
-        var result = 0;
+      function xorDecrypt(str) {
+        var key_len = key.length;
+        var len = str.length;
+        var result = '';
 
-        for (var i = 0; i < str.length; i++) {
-          result = (result << 5) - result + str.charCodeAt(i);
+        for (var i = 0; i < len; i++) {
+          result += String.fromCharCode(str.charCodeAt(i) ^ key.charCodeAt(i % key_len));
         }
 
-        return Math.abs(result).toString(36);
+        return result;
+      }
+
+      function binaryToUtf8(str) {
+        if (typeof TextDecoder !== "undefined") {
+          try {
+            var arr = new Uint8Array(str.length);
+
+            for (var i = 0; i < str.length; i++) {
+              arr[i] = str.charCodeAt(i);
+            }
+
+            return new TextDecoder('utf-8').decode(arr);
+          } catch (e) {}
+        }
+
+        try {
+          return decodeURIComponent(escape(str));
+        } catch (e) {
+          return str;
+        }
+      }
+
+      function decrypt(json) {
+        try {
+          var str = json.p;
+
+          if (json.v == 1) {
+            if (true) {
+              str = str.split('').reverse().join('');
+            }
+
+            str = binaryToUtf8(xorDecrypt(atob(str)));
+          }
+
+          return JSON.parse(str);
+        } catch (e) {
+          return {};
+        }
       }
 
       function getPage(json, empty) {
@@ -7428,10 +7468,14 @@
         var url = host + (info.type === 'movie' ? '/api/v1/embed/' : '/api/v1/embed-serials/') + info.id;
         url = Lampa.Utils.addUrlComponent(url, 'domain=' + encodeURIComponent(atob('dmliaXgub3Jn')));
         url = Lampa.Utils.addUrlComponent(url, 'iframe_url=' + encodeURIComponent(json.iframe_url));
-        url = Lampa.Utils.addUrlComponent(url, 'kp=' + encrypt(Date.now().toString()));
+        url = Lampa.Utils.addUrlComponent(url, 'nc=' + Math.floor(new Date().getTime() / 3600000));
         network.clear();
         network.timeout(15000);
         network["native"](component.proxyLink(url, prox, prox_enc2), function (json) {
+          if (json && Object.keys(json).length == 2 && typeof json.p === 'string' && json.v != null) {
+            json = decrypt(json);
+          }
+
           if (json && json.data && json.data.playlist && json.data.playlist.forEach) {
             component.loading(false);
             extract = json.data;
@@ -10837,9 +10881,9 @@
         network["native"](component.proxyLink(url, prox), function (str) {
           str = (str || '').replace(/\n/g, '');
           var urlParams = str.match(/\burlParams = '([^']+)'/);
-          var type = str.match(/\bvideoInfo\.type = '([^']+)'/);
-          var hash = str.match(/\bvideoInfo\.hash = '([^']+)'/);
-          var id = str.match(/\bvideoInfo\.id = '([^']+)'/);
+          var type = str.match(/\b(?:videoInfo|vInfo)\.type = '([^']+)'/);
+          var hash = str.match(/\b(?:videoInfo|vInfo)\.hash = '([^']+)'/);
+          var id = str.match(/\b(?:videoInfo|vInfo)\.id = '([^']+)'/);
           var player = str.match(/<script [^>]*\bsrc="(\/assets\/js\/app\.player_single[^"]+)"/);
           var json;
 
@@ -13291,7 +13335,7 @@
       };
     }
 
-    var mod_version = '28.01.2026';
+    var mod_version = '02.02.2026';
     var isMSX = !!(window.TVXHost || window.TVXManager);
     var isTizen = navigator.userAgent.toLowerCase().indexOf('tizen') !== -1;
     var isIFrame = window.parent !== window;
