@@ -60,25 +60,58 @@ jobs:
 #       nc -z -v 127.0.0.53 53 && echo ""
 
 ############################
-    - name: Install depens for CoreDNS
+#    - name: Install depens for CoreDNS
+#      env:
+#        DEBIAN_FRONTEND: noninteractive
+#      run: |
+#       sudo apt update && sudo apt install curl make software-properties-common git -y --no-install-suggests && sudo add-apt-repository ppa:longsleep/golang-backports -y
+#       sudo apt install golang upx-ucl -y --no-install-suggests
+
+#    - name: Compile CoreDNS
+#      env:
+#        DEBIAN_FRONTEND: noninteractive
+#      run: |
+#       git clone --depth 1 https://github.com/coredns/coredns.git
+#       cd coredns && make -j$(nproc) && sudo upx -q ./coredns && sudo cp coredns /usr/local/bin/ && cd ../ && sudo rm -r ./coredns/
+#       sudo apt autoremove golang upx-ucl -y
+
+#    - name: Install CoreDNS
+#      env:
+#        URL_CONFIG_COREDNS: https://gist.githubusercontent.com/you-oops-dev/e244f9f6fe96a609b8d9cf2f1f478bdf/raw/51ece1c11022cd9604206bff94698316567a4881/CoreDNS_config.conf
+#      run: |
+#       sudo chmod -c 755 /usr/local/bin/coredns && sudo chown -c root:root /usr/local/bin/coredns
+#       whereis coredns
+#       sudo mkdir -p /etc/coredns/ /etc/systemd/system/
+#       echo -e "[Unit]\nDescription=CoreDNS DNS server\nDocumentation=https://coredns.io\nAfter=network.target\n[Service]\nPermissionsStartOnly=true\nLimitNOFILE=1048576\nLimitNPROC=512\nCapabilityBoundingSet=CAP_NET_BIND_SERVICE\nAmbientCapabilities=CAP_NET_BIND_SERVICE\nNoNewPrivileges=true\nUser=root\nExecStart=/usr/local/bin/coredns -conf=/etc/coredns/Corefile\nExecReload=/bin/kill -SIGUSR1 $MAINPID\nRestart=on-failure\n[Install]\nWantedBy=multi-user.target" | sudo tee /etc/systemd/system/coredns.service
+#       curl --max-time 30 --retry-delay 3 --retry 10 -4 -# ${URL_CONFIG_COREDNS} | sudo tee /etc/coredns/Corefile &>/dev/null
+#       sudo chown root:root /etc/coredns/Corefile
+#       sudo cat -n /etc/coredns/Corefile
+#       echo ""
+#       sudo systemctl daemon-reload
+
+#    - name: Change DNS-Server's using CoreDNS
+#      run: |
+#       echo "nameserver 127.0.0.1" | sudo tee /etc/resolv.conf.DNSoverride &>/dev/null;
+#       sudo ln -svf /etc/resolv.conf.DNSoverride /etc/resolv.conf
+#       echo ""
+#       cat -n /etc/resolv.conf
+#       echo ""
+#       sudo systemctl stop systemd-resolved.service && sudo systemctl disable systemd-resolved.service
+#       sudo systemctl start coredns.service && sleep 15s && echo "" && nc -z -v 127.0.0.1 53 && echo ""
+#       systemctl -q status coredns.service
+
+############################
+
+    - name: Install CoreDNS pre-build binary
       env:
         DEBIAN_FRONTEND: noninteractive
-      run: |
-       sudo apt update && sudo apt install curl make software-properties-common git -y --no-install-suggests && sudo add-apt-repository ppa:longsleep/golang-backports -y
-       sudo apt install golang upx-ucl -y --no-install-suggests
-
-    - name: Compile CoreDNS
-      env:
-        DEBIAN_FRONTEND: noninteractive
-      run: |
-       git clone --depth 1 https://github.com/coredns/coredns.git
-       cd coredns && make -j$(nproc) && sudo upx -q ./coredns && sudo cp coredns /usr/local/bin/ && cd ../ && sudo rm -r ./coredns/
-       sudo apt autoremove golang upx-ucl -y
-
-    - name: Install CoreDNS
-      env:
         URL_CONFIG_COREDNS: https://gist.githubusercontent.com/you-oops-dev/e244f9f6fe96a609b8d9cf2f1f478bdf/raw/51ece1c11022cd9604206bff94698316567a4881/CoreDNS_config.conf
+        URL_PREBUILD_COREDNS: https://github.com/coredns/coredns/releases/download/v1.14.1/coredns_1.14.1_linux_amd64.tgz
+        COREDNS_VER: 1.14.1
       run: |
+       sudo apt update && sudo apt install libarchive-tools wget curl make software-properties-common git dnsmasq ipset ipset-persistent iptables iptables-persistent dbus -y --no-install-suggests
+       sudo wget ${URL_PREBUILD_COREDNS} -P /tmp/ && sudo mv -fv /tmp/coredns_${COREDNS_VER}_linux_amd64.tgz /tmp/coredns.tgz
+       sudo bsdtar -pvxf /tmp/coredns.tgz && sudo mv -fv coredns /usr/local/bin/coredns && sudo rm -fv /tmp/coredns.tgz
        sudo chmod -c 755 /usr/local/bin/coredns && sudo chown -c root:root /usr/local/bin/coredns
        whereis coredns
        sudo mkdir -p /etc/coredns/ /etc/systemd/system/
@@ -99,8 +132,6 @@ jobs:
        sudo systemctl stop systemd-resolved.service && sudo systemctl disable systemd-resolved.service
        sudo systemctl start coredns.service && sleep 15s && echo "" && nc -z -v 127.0.0.1 53 && echo ""
        systemctl -q status coredns.service
-
-############################
 
     - name: Test DNS-query
       run: |
