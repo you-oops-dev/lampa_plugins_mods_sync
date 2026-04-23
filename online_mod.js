@@ -1,4 +1,4 @@
-//21.03.2026 - Fix
+//13.04.2026 - Fix
 
 (function () {
     'use strict';
@@ -14,7 +14,7 @@
     }
 
     var myIp = '';
-    var currentFanserialsHost = decodeSecret([95, 57, 28, 42, 55, 125, 28, 124, 75, 83, 86, 35, 27, 63, 54, 46, 82, 63, 9, 27, 81, 56, 6], atob('RnVja0Zhbg=='));
+    var currentFanserialsHost = decodeSecret([95, 57, 28, 42, 55, 125, 28, 124, 75, 83, 86, 35, 27, 63, 54, 46, 82, 63, 9, 27, 84, 34, 5], atob('RnVja0Zhbg=='));
 
     function salt(input) {
       var str = (input || '') + '';
@@ -109,7 +109,7 @@
     }
 
     function fanserialsHost() {
-      return currentFanserialsHost || decodeSecret([95, 57, 28, 42, 55, 125, 28, 124, 75, 83, 86, 35, 27, 63, 54, 46, 82, 63, 9, 27, 81, 56, 6], atob('RnVja0Zhbg=='));
+      return currentFanserialsHost || decodeSecret([95, 57, 28, 42, 55, 125, 28, 124, 75, 83, 86, 35, 27, 63, 54, 46, 82, 63, 9, 27, 84, 34, 5], atob('RnVja0Zhbg=='));
     }
 
     function fancdnHost() {
@@ -133,7 +133,7 @@
     }
 
     function baseUserAgent() {
-      return 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36';
+      return 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36';
     }
 
     function vcdnToken() {
@@ -184,7 +184,7 @@
       var proxy_secret_ip = '';
 
       if (isDebug()) {
-        proxy_secret = decodeSecret([36, 63, 17, 6, 17, 0, 104, 90, 19, 40, 34, 102, 8, 20, 87, 15, 113, 91, 25, 55, 53, 46, 7, 88, 3, 74, 55, 90]);
+        proxy_secret = decodeSecret([36, 63, 17, 6, 17, 0, 104, 90, 19, 40, 34, 102, 8, 20, 87, 15, 113, 91, 25, 55, 53, 46, 7, 88, 3, 74, 55, 90, 19, 40, 34, 100]);
         proxy_secret_ip = proxy_secret + (param_ip || 'ip/');
       }
 
@@ -214,16 +214,16 @@
         if (name === 'filmix') return proxy_other && !proxy_other_url && proxy_secret_ip || user_proxy1;
         if (name === 'videodb') return user_proxy2;
         if (name === 'fancdn') return user_proxy3;
-        if (name === 'fancdn2') return user_proxy2;
+        if (name === 'fancdn2') return user_proxy1;
         if (name === 'fanserials') return user_proxy1;
         if (name === 'fanserials_cdn') return proxy_secret;
-        if (name === 'videoseed') return user_proxy1;
-        if (name === 'vibix') return user_proxy2;
+        if (name === 'videoseed') return proxy_secret;
+        if (name === 'vibix') return proxy_secret;
         if (name === 'redheadsound') return user_proxy2;
         if (name === 'anilibria') return user_proxy2;
-        if (name === 'anilibria2') return user_proxy2;
+        if (name === 'anilibria2') return user_proxy1;
         if (name === 'animelib') return proxy_secret;
-        if (name === 'kodik') return user_proxy2;
+        if (name === 'kodik') return user_proxy1;
         if (name === 'kinopub') return user_proxy2;
       }
 
@@ -3209,7 +3209,7 @@
 
       var lampa_player = Lampa.Storage.field('online_mod_collaps_lampa_player') === true;
       var prox = component.proxy('collaps');
-      var base = 'api.variyt.ws';
+      var base = 'api.zenithjs.ws';
       var host = 'https://' + base;
       var ref = host + '/';
       var user_agent = Utils.baseUserAgent();
@@ -6293,7 +6293,7 @@
       var prefer_http = Lampa.Storage.field('online_mod_prefer_http') === true;
       var prox = component.proxy('fanserials');
       var prox_cdn = component.proxy('fanserials_cdn');
-      var host = Utils.fanserialsHost();
+      var host = Utils.decodeSecret([95, 57, 28, 42, 55, 125, 28, 124, 28, 84, 89, 62, 13, 40, 45, 38, 95, 125, 23, 80], atob('RnVja0Zhbg=='));
       var ref = host + '/';
       var user_agent = Utils.baseUserAgent();
       var headers = Lampa.Platform.is('android') ? {
@@ -6418,6 +6418,10 @@
 
           if (json && json.hls) {
             file = component.fixLink(json.hls, url);
+
+            if (prox && !prox_cdn) {
+              file = file.replace(/\/\/cdn(\d+)\./, '//s$1.');
+            }
           }
 
           ['data-original_subtitle', 'data-ru_subtitle', 'data-en_subtitle', 'data-ua_subtitle'].forEach(function (sub) {
@@ -6761,7 +6765,7 @@
       var ref = host + '/';
       var user_agent = Utils.baseUserAgent();
       var embed = atob('aHR0cHM6Ly9hcGkudmlkZW9zZWVkLnR2L2FwaXYyLnBocA==');
-      var suffix = Utils.decodeSecret([56, 36, 14, 19, 12, 7, 117, 77, 17, 59, 120, 122, 3, 69, 82, 9, 119, 16, 71, 107, 42, 46, 0, 67, 87, 10, 116, 77, 74, 111, 125, 127, 80, 64, 84, 92, 115, 22]);
+      var suffix = Utils.decodeSecret([56, 36, 14, 19, 12, 7, 35, 22, 22, 58, 127, 45, 82, 19, 83, 10, 118, 70, 66, 57, 121, 124, 93, 71, 0, 12, 126, 20, 64, 109, 122, 47, 3, 68, 80, 9, 34, 71]);
       var headers = Lampa.Platform.is('android') ? {
         'Origin': host,
         'Referer': ref,
@@ -12117,7 +12121,7 @@
         search: false,
         kp: true,
         imdb: true,
-        disabled: disable_dbg
+        disabled: true
       }, {
         name: 'vibix',
         title: 'Vibix',
@@ -13418,7 +13422,7 @@
       };
     }
 
-    var mod_version = '21.03.2026';
+    var mod_version = '13.04.2026';
     var isMSX = !!(window.TVXHost || window.TVXManager);
     var isTizen = navigator.userAgent.toLowerCase().indexOf('tizen') !== -1;
     var isIFrame = window.parent !== window;
