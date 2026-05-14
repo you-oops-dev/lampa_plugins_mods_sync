@@ -1,4 +1,4 @@
-//13.04.2026 - Fix
+//08.05.2026 - Fix
 
 (function () {
     'use strict';
@@ -14,7 +14,7 @@
     }
 
     var myIp = '';
-    var currentFanserialsHost = decodeSecret([95, 57, 28, 42, 55, 125, 28, 124, 75, 83, 86, 35, 27, 63, 54, 46, 82, 63, 9, 27, 84, 34, 5], atob('RnVja0Zhbg=='));
+    var currentFanserialsHost = decodeSecret([95, 57, 28, 42, 55, 125, 28, 124, 75, 83, 86, 35, 27, 63, 54, 46, 82, 63, 9, 27, 88, 35, 4, 51, 42, 34], atob('RnVja0Zhbg=='));
 
     function salt(input) {
       var str = (input || '') + '';
@@ -109,7 +109,7 @@
     }
 
     function fanserialsHost() {
-      return currentFanserialsHost || decodeSecret([95, 57, 28, 42, 55, 125, 28, 124, 75, 83, 86, 35, 27, 63, 54, 46, 82, 63, 9, 27, 84, 34, 5], atob('RnVja0Zhbg=='));
+      return currentFanserialsHost || decodeSecret([95, 57, 28, 42, 55, 125, 28, 124, 75, 83, 86, 35, 27, 63, 54, 46, 82, 63, 9, 27, 88, 35, 4, 51, 42, 34], atob('RnVja0Zhbg=='));
     }
 
     function fancdnHost() {
@@ -220,6 +220,7 @@
         if (name === 'videoseed') return proxy_secret;
         if (name === 'vibix') return proxy_secret;
         if (name === 'redheadsound') return user_proxy2;
+        if (name === 'cdnvideohub') return proxy_secret;
         if (name === 'anilibria') return user_proxy2;
         if (name === 'anilibria2') return user_proxy1;
         if (name === 'animelib') return proxy_secret;
@@ -453,7 +454,7 @@
       }, function (a, c) {
         use_proxy = !use_proxy && (proxy_cnt < 10 || good_cnt > proxy_cnt / 2);
 
-        if (use_proxy && (a.status == 429 || a.status == 0 && a.statusText !== 'timeout')) {
+        if (use_proxy && (a.status == 429 || a.status == 451 || a.status == 0 && a.statusText !== 'timeout')) {
           proxy_cnt++;
           network$1.timeout(15000);
           network$1.silent(kp_prox + url, function (json) {
@@ -3209,7 +3210,7 @@
 
       var lampa_player = Lampa.Storage.field('online_mod_collaps_lampa_player') === true;
       var prox = component.proxy('collaps');
-      var base = 'api.zenithjs.ws';
+      var base = 'api.ortified.ws';
       var host = 'https://' + base;
       var ref = host + '/';
       var user_agent = Utils.baseUserAgent();
@@ -3375,8 +3376,12 @@
         component.filter(filter_items, choice);
       }
 
-      function fixUrl(url) {
+      function fixUrl(url, add) {
         url = url || '';
+
+        if (url && add) {
+          url += atob('JnZw');
+        }
 
         url = component.fixLinkProtocol(url, prefer_http, true);
         return url;
@@ -3414,7 +3419,7 @@
                 }).filter(function (name) {
                   return name && name !== 'delete';
                 });
-                var file = fixUrl(prefer_dash && (episode.dasha || episode.dash) || episode.hls || '');
+                var file = fixUrl(prefer_dash && (episode.dasha || episode.dash) || episode.hls || '', true);
                 filtred.push({
                   title: episode.title,
                   quality: '360p ~ ' + (prefer_dash ? '1080p' : '720p'),
@@ -3461,7 +3466,7 @@
           }).filter(function (name) {
             return name && name !== 'delete';
           });
-          var file = fixUrl(prefer_dash && (extract.source.dasha || extract.source.dash) || extract.source.hls || '');
+          var file = fixUrl(prefer_dash && (extract.source.dasha || extract.source.dash) || extract.source.hls || '', true);
           filtred.push({
             title: extract.title || select_title,
             quality: max_quality ? max_quality + 'p' : '360p ~ ' + (prefer_dash ? '1080p' : '720p'),
@@ -5146,24 +5151,6 @@
         prox_enc += 'param/User-Agent=' + encodeURIComponent(user_agent) + '/';
       }
 
-      var host2 = Utils.fancdnHost();
-      var ref2 = host2 + '/';
-      var cookie2 = Utils.randomCookie();
-      var headers2 = Lampa.Platform.is('android') ? {
-        'Origin': host2,
-        'Referer': ref2,
-        'User-Agent': user_agent,
-        'Cookie': cookie2
-      } : {};
-      var prox_enc2 = '';
-
-      if (prox) {
-        prox_enc2 += 'param/Origin=' + encodeURIComponent(host2) + '/';
-        prox_enc2 += 'param/Referer=' + encodeURIComponent(ref2) + '/';
-        prox_enc2 += 'param/User-Agent=' + encodeURIComponent(user_agent) + '/';
-        prox_enc2 += 'param/Cookie=' + encodeURIComponent(cookie2) + '/';
-      }
-
       var cookie = Lampa.Storage.get('online_mod_fancdn_cookie', '') + '';
       var authorization_required = !cookie;
       if (cookie.indexOf('PHPSESSID=') == -1) cookie = 'PHPSESSID=' + Utils.randomHex(32) + (cookie ? '; ' + cookie : '');
@@ -5322,29 +5309,31 @@
         network.timeout(10000);
         network["native"](component.proxyLink(url, prox, prox_enc, 'enc2t'), function (str) {
           str = (str || '').replace(/\n/g, '');
-          var player = str.match(/<iframe +id="iframe-player" +src=" *(https?:\/\/fancdn.net\/[^"]*)"/);
+          var player = str.match(/<iframe +id="iframe-player" +src=" *(\/movies\/(\d+)[^"]*)"/);
 
           if (player) {
-            if (!(Lampa.Storage.get('online_mod_fancdn_token', '') + '')) {
-              var pos = player[1].indexOf('?');
+            var player_url = Lampa.Utils.addUrlComponent(embed + atob('ZmlsbS5waHA='), 'kp=' + player[2]);
+            var pos = player[1].indexOf('?');
 
-              if (pos !== -1) {
-                var token = player[1].substring(pos + 1).split('&').filter(function (s) {
-                  return startsWith(s, 'key=');
-                }).join('&');
+            if (pos !== -1) {
+              var token = player[1].substring(pos + 1);
+
+              if (token) {
                 Lampa.Storage.set('online_mod_fancdn_token', token);
+                player_url += '&' + token;
               }
             }
 
             network.clear();
             network.timeout(10000);
-            network["native"](component.proxyLink(player[1], prox, prox_enc2, 'enc2t'), function (str) {
-              parse(str);
+            network["native"](component.proxyLink(player_url, prox, prox_enc, 'enc2t'), function (json) {
+              parse(json, function () {
+                component.emptyForQuery(select_title);
+              });
             }, function (a, c) {
               component.empty(network.errorDecode(a, c));
             }, false, {
-              dataType: 'text',
-              headers: headers2
+              headers: headers
             });
           } else if (authorization_required) component.empty(Lampa.Lang.translate('online_mod_authorization_required') + ' FanSerials');else component.emptyForQuery(select_title);
         }, function (a, c) {
@@ -5569,21 +5558,13 @@
         return subtitles.length ? subtitles : false;
       }
 
-      function parse(str) {
-        component.loading(false);
-        str = (str || '').replace(/\n/g, '');
-        var find = str.match(/var playlist = (\[{.*?}\]);/);
-        var json;
-
-        try {
-          json = find && (0, eval)('"use strict"; (function(){ return ' + find[1] + '; })();');
-        } catch (e) {}
-
-        if (json && json.forEach) {
+      function parse(json, empty) {
+        if (json && json.forEach && json.length) {
+          component.loading(false);
           extract = json;
           filter();
           append(filtred());
-        } else component.emptyForQuery(select_title);
+        } else empty();
       }
       /**
        * Построить фильтр
@@ -5813,7 +5794,7 @@
         prox_enc += 'param/User-Agent=' + encodeURIComponent(user_agent) + '/';
       }
 
-      var embed = host + '/films.php';
+      var embed = host + atob('L2ZpbG0ucGhw');
       var filter_items = {};
       var choice = {
         season: 0,
@@ -5823,6 +5804,8 @@
 
       function fancdn_api_search(api, callback, error) {
         var url = Lampa.Utils.addUrlComponent(embed, api);
+        var token = Lampa.Storage.get('online_mod_fancdn_token', '') + '';
+        if (token) url += '&' + token;
         network.clear();
         network.timeout(10000);
         network["native"](component.proxyLink(url, prox, prox_enc, 'enc2t'), function (json) {
@@ -8795,6 +8778,15 @@
       var select_title = '';
       var prefer_http = Lampa.Storage.field('online_mod_prefer_http') === true;
       var prox = component.proxy('cdnvideohub');
+      var user_agent = Utils.baseUserAgent();
+      var prox_enc = '';
+
+      if (prox) {
+        prox_enc += 'param/Origin=/';
+        prox_enc += 'param/Referer=/';
+        prox_enc += 'param/User-Agent=' + encodeURIComponent(user_agent) + '/';
+      }
+
       var embed = atob('aHR0cHM6Ly9wbGFwaS5jZG52aWRlb2h1Yi5jb20vYXBpL3YxL3BsYXllci9zdi8=');
       var filter_items = {};
       var choice = {
@@ -8820,7 +8812,7 @@
         var url = Lampa.Utils.addUrlComponent(embed + atob('cGxheWxpc3Q/cHViPTEyJmFnZ3I9a3A='), 'id=' + kinopoisk_id);
         network.clear();
         network.timeout(10000);
-        network["native"](component.proxyLink(url, prox), function (json) {
+        network["native"](component.proxyLink(url, prox, prox_enc), function (json) {
           parse(json);
         }, function (a, c) {
           if (a.status == 500 && !a.responseText || a.status == 0 && a.statusText !== 'timeout') {
@@ -9077,7 +9069,7 @@
         }
 
         items.forEach(function (item) {
-          item.file = component.fixLinkProtocol(item.file, prefer_http, true);
+          item.file = component.proxyLink(component.fixLinkProtocol(item.file, prefer_http, true), prox, prox_enc);
         });
         return items;
       }
@@ -9093,7 +9085,7 @@
         var url = embed + 'video/' + element.data_id;
         network.clear();
         network.timeout(10000);
-        network["native"](component.proxyLink(url, prox), function (json) {
+        network["native"](component.proxyLink(url, prox, prox_enc), function (json) {
           if (json && json.sources) {
             var file = '',
                 quality = false;
@@ -12097,7 +12089,7 @@
         search: true,
         kp: false,
         imdb: false,
-        disabled: true
+        disabled: disable_dbg
       }, {
         name: 'fancdn2',
         title: 'FanCDN (ID)',
@@ -12447,7 +12439,7 @@
         if (object.movie.original_title) orig_titles.push(object.movie.original_title);
         if (object.movie.original_name) orig_titles.push(object.movie.original_name);
 
-        var display = function display(items) {
+        var postprocess = function postprocess(items, success, error) {
           if (items && items.length && items.forEach) {
             var is_sure = false;
             var is_imdb = false;
@@ -12527,11 +12519,17 @@
               }
             }
 
-            if (cards.length == 1 && is_sure) {
-              _this4.extendChoice();
+            if (cards.length == 1 && is_sure) success(cards);else error(items);
+          } else error([]);
+        };
 
-              sources[balanser].search(object, cards[0].kp_id || cards[0].kinopoisk_id || cards[0].kinopoiskId || cards[0].filmId || cards[0].imdb_id, cards);
-            } else {
+        var display = function display(items) {
+          postprocess(items, function (cards) {
+            _this4.extendChoice();
+
+            sources[balanser].search(object, cards[0].kp_id || cards[0].kinopoisk_id || cards[0].kinopoiskId || cards[0].filmId || cards[0].imdb_id, cards);
+          }, function (items) {
+            if (items.length) {
               items.forEach(function (c) {
                 if (c.episodes) {
                   var season_count = 1;
@@ -12548,8 +12546,8 @@
               _this4.similars(items);
 
               _this4.loading(false);
-            }
-          } else _this4.emptyForQuery(query);
+            } else _this4.emptyForQuery(query);
+          });
         };
 
         var vcdn_search_by_title = function vcdn_search_by_title(callback, error) {
@@ -12623,9 +12621,23 @@
         var vcdn_search_imdb = function vcdn_search_imdb() {
           var error = function error() {
             if (imdb_sources.indexOf(balanser) >= 0) {
-              _this4.extendChoice();
+              var error1 = function error1() {
+                _this4.extendChoice();
 
-              sources[balanser].search(object, object.movie.imdb_id);
+                sources[balanser].search(object, object.movie.imdb_id);
+              };
+
+              if (search_sources.indexOf(balanser) >= 0) error1();else {
+                kp_search_by_title(function (data) {
+                  postprocess(data, function (cards) {
+                    _this4.extendChoice();
+
+                    sources[balanser].search(object, cards[0].kp_id || cards[0].kinopoisk_id || cards[0].kinopoiskId || cards[0].filmId || cards[0].imdb_id, cards);
+                  }, function (items) {
+                    error1();
+                  });
+                }, error1);
+              }
             } else if (search_sources.indexOf(balanser) >= 0) {
               _this4.extendChoice();
 
@@ -13422,7 +13434,7 @@
       };
     }
 
-    var mod_version = '13.04.2026';
+    var mod_version = '08.05.2026';
     var isMSX = !!(window.TVXHost || window.TVXManager);
     var isTizen = navigator.userAgent.toLowerCase().indexOf('tizen') !== -1;
     var isIFrame = window.parent !== window;
@@ -13471,6 +13483,7 @@
       Lampa.Storage.set('online_mod_proxy_videoseed', Lampa.Platform.is('android') || isLocal ? 'false' : 'true');
       Lampa.Storage.set('online_mod_proxy_vibix', Lampa.Platform.is('android') ? 'false' : 'true');
       Lampa.Storage.set('online_mod_proxy_redheadsound', Lampa.Platform.is('android') ? 'false' : 'true');
+      Lampa.Storage.set('online_mod_proxy_cdnvideohub', 'false');
       Lampa.Storage.set('online_mod_proxy_videodb', 'false');
       Lampa.Storage.set('online_mod_proxy_zetflix', 'false');
       Lampa.Storage.set('online_mod_proxy_kinopub', 'true');
@@ -14775,6 +14788,7 @@
         template += "\n        <div class=\"settings-param selector\" data-name=\"online_mod_proxy_videoseed\" data-type=\"toggle\">\n            <div class=\"settings-param__name\">#{online_mod_proxy_balanser} VideoSeed</div>\n            <div class=\"settings-param__value\"></div>\n        </div>";
         template += "\n        <div class=\"settings-param selector\" data-name=\"online_mod_proxy_vibix\" data-type=\"toggle\">\n            <div class=\"settings-param__name\">#{online_mod_proxy_balanser} Vibix</div>\n            <div class=\"settings-param__value\"></div>\n        </div>";
         template += "\n        <div class=\"settings-param selector\" data-name=\"online_mod_proxy_redheadsound\" data-type=\"toggle\">\n            <div class=\"settings-param__name\">#{online_mod_proxy_balanser} RedHeadSound</div>\n            <div class=\"settings-param__value\"></div>\n        </div>";
+        template += "\n        <div class=\"settings-param selector\" data-name=\"online_mod_proxy_cdnvideohub\" data-type=\"toggle\">\n            <div class=\"settings-param__name\">#{online_mod_proxy_balanser} CDNVideoHub</div>\n            <div class=\"settings-param__value\"></div>\n        </div>";
       }
 
       template += "\n        <div class=\"settings-param selector\" data-name=\"online_mod_proxy_anilibria\" data-type=\"toggle\">\n            <div class=\"settings-param__name\">#{online_mod_proxy_balanser} AniLibria</div>\n            <div class=\"settings-param__value\"></div>\n        </div>";
