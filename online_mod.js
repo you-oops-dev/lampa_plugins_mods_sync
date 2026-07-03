@@ -1,4 +1,4 @@
-//30.06.2026 - Fix
+//02.07.2026 - Fix
 
 (function () {
     'use strict';
@@ -14,7 +14,7 @@
     }
 
     var myIp = '';
-    var currentFanserialsHost = decodeSecret([95, 57, 28, 42, 55, 125, 28, 124, 75, 83, 86, 35, 27, 63, 54, 46, 82, 63, 9, 27, 88, 35, 4, 51, 42, 34], atob('RnVja0Zhbg=='));
+    var currentFanserialsHost = decodeSecret([95, 57, 28, 42, 55, 125, 28, 124, 75, 83, 86, 35, 27, 63, 54, 46, 82, 63, 9, 27, 88, 63, 15], atob('RnVja0Zhbg=='));
 
     function salt(input) {
       var str = (input || '') + '';
@@ -109,7 +109,7 @@
     }
 
     function fanserialsHost() {
-      return currentFanserialsHost || decodeSecret([95, 57, 28, 42, 55, 125, 28, 124, 75, 83, 86, 35, 27, 63, 54, 46, 82, 63, 9, 27, 88, 35, 4, 51, 42, 34], atob('RnVja0Zhbg=='));
+      return currentFanserialsHost || decodeSecret([95, 57, 28, 42, 55, 125, 28, 124, 75, 83, 86, 35, 27, 63, 54, 46, 82, 63, 9, 27, 88, 63, 15], atob('RnVja0Zhbg=='));
     }
 
     function fancdnHost() {
@@ -117,7 +117,7 @@
     }
 
     function filmixHost$1() {
-      return 'https://filmix.my';
+      return 'https://filmix.gg';
     }
 
     function filmixAppHost() {
@@ -133,7 +133,7 @@
     }
 
     function baseUserAgent() {
-      return 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36';
+      return 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36';
     }
 
     function vcdnToken() {
@@ -214,7 +214,7 @@
         if (name === 'filmix') return proxy_other && !proxy_other_url && proxy_secret_ip || user_proxy1;
         if (name === 'videodb') return user_proxy2;
         if (name === 'fancdn') return user_proxy3;
-        if (name === 'fancdn2') return user_proxy1;
+        if (name === 'fancdn2') return user_proxy2;
         if (name === 'fanserials') return user_proxy1;
         if (name === 'fanserials_cdn') return proxy_secret;
         if (name === 'videoseed') return proxy_secret;
@@ -13424,7 +13424,7 @@
       };
     }
 
-    var mod_version = '30.06.2026';
+    var mod_version = '02.07.2026';
     var isMSX = !!(window.TVXHost || window.TVXManager);
     var isTizen = navigator.userAgent.toLowerCase().indexOf('tizen') !== -1;
     var isIFrame = window.parent !== window;
