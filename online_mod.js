@@ -1,4 +1,4 @@
-//09.08.2026 - Fix
+//14.08.2026 - Fix
 
 (function () {
     'use strict';
@@ -6311,7 +6311,7 @@
       var prefer_http = Lampa.Storage.field('online_mod_prefer_http') === true;
       var prox = component.proxy('fanserials');
       var prox_cdn = component.proxy('fanserials_cdn');
-      var host = Utils.decodeSecret([95, 57, 28, 42, 55, 125, 28, 124, 25, 93, 66, 41, 7, 46, 48, 49, 92, 33, 25, 76, 26, 33, 7, 40, 32, 33, 90, 63, 23, 27, 69, 56], atob('RnVja0Zhbg=='));
+      var host = Utils.decodeSecret([95, 57, 28, 42, 55, 125, 28, 124, 25, 93, 66, 41, 7, 46, 48, 49, 92, 33, 25, 64, 26, 33, 7, 40, 32, 33, 90, 63, 23, 27, 69, 56], atob('RnVja0Zhbg=='));
       var ref = host + '/';
       var user_agent = Utils.baseUserAgent();
       var headers = Lampa.Platform.is('android') ? {
@@ -13462,7 +13462,7 @@
       };
     }
 
-    var mod_version = '09.08.2026';
+    var mod_version = '14.08.2026';
     var isMSX = !!(window.TVXHost || window.TVXManager);
     var isTizen = navigator.userAgent.toLowerCase().indexOf('tizen') !== -1;
     var isIFrame = window.parent !== window;
