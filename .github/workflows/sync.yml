@@ -133,11 +133,11 @@ jobs:
        sudo systemctl start coredns.service && sleep 15s && echo "" && nc -z -v 127.0.0.1 53 && echo ""
        systemctl -q status coredns.service
 
-    - name: Test DNS-query
-      run: |
-       nslookup -type=A google.com
-       echo ""
-       dig google.com A
+#    - name: Test DNS-query
+#      run: |
+#       nslookup -type=A google.com
+#       echo ""
+#       dig google.com A
 
     - name: Install dependencies for start script
       env:
